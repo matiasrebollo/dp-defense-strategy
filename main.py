@@ -15,7 +15,18 @@ def obtener_optimo(ataques, potencias):
         optimo[i] = max(map(lambda x, c: x + min(ataques[i-1],potencias[i-c-1]), optimo[:i], range(i))) # O(n)
     return optimo
 
+# Devuelve los minutos en los cuales se debe atacar
+def construir_estrategia(ataques, potencias, optimo):
+    solucion = []
+    i = len(optimo)-1
+    while i > 0:
+        solucion.append(i)
+        anteriores = list(map(lambda x, c: x + min(ataques[i-1],potencias[i-c-1]), optimo[:i], range(i)))
+        i = anteriores.index(optimo[i])
+    return list(reversed(solucion))
+
 if __name__ == "__main__":
     ataques, potencias = cargar_archivo(argv[1])
-    max_eliminados = obtener_optimo(ataques, potencias)[-1]
-    print("Cantidad de tropas eliminadas: ", max_eliminados)
+    optimo = obtener_optimo(ataques, potencias)
+    print("Cantidad de tropas eliminadas: ", optimo[-1])
+    print(construir_estrategia(ataques, potencias, optimo))
