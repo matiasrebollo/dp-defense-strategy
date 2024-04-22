@@ -4,6 +4,26 @@ El objetivo del presente trabajo es idear un algoritmo que indique la estrategia
 
 # Análisis del Problema
 
+Para un periodo de $n$ minutos, se consta de dos conjuntos de datos:
+- $x_i$ la cantidad de enemigos que llegaran en el minuto $i$.
+- $f(i)$ la potencia del ataque de los Dai Li habiendo pasado $i$ minutos desde el ultimo ataque.
+
+Nuestro objetivo es decidir cuales son los minutos cruciales para atacar a los enemigos y así maximizar sus bajas.
+
+Como se pide una solucion mediante programacion dinamica, pensemos en los casos bases:
+- $n=0$: No hay ataque, no hay bajas enemigas.
+- $n=1$: Al ser la unica oportunidad de ataque, hay que atacar a los enemigos, provocando $\min(x_1, f(1))$ bajas enemigas.
+
+Sigamos con el análisis de casos sencillos.
+- $n=2$: Como **no tiene sentido no atacar en el ultimo minuto**, las posibles estrategias son atacar en ambos minutos (Ataque, Ataque), cargar el ataque por un minuto y atacar en el ultimo minuto (Cargar, Ataque). Eligiremos aquella que cause mayor daño al enemigo, o en otras palabras $\max(\min(x_2, f(2)), \min(x_1,f(1)+\min(x_1, f(1)))$.
+- $n=3$: Tenemos el doble de estrategias que el caso anterior:
+    - **Atacar**, **Atacar**, Atacar
+    - **Cargar**, **Atacar**, Atacar
+    - Atacar, Cargar, Atacar
+    - Cargar, Cargar, Atacar
+
+  Si observamos bien, las primeras dos estrategias, tienen parte del problema del punto anterior
+
 ### Ecuación de Recurrencia
 
 $$
