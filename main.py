@@ -28,5 +28,5 @@ def construir_estrategia(ataques, potencias, optimo):
 if __name__ == "__main__":
     ataques, potencias = cargar_archivo(argv[1])
     optimo = obtener_optimo(ataques, potencias)
-    print("Cantidad de tropas eliminadas: ", optimo[-1])
-    print(construir_estrategia(ataques, potencias, optimo))
+    print("Estrategia:", construir_estrategia(ataques, potencias, optimo))
+    print("Cantidad de tropas eliminadas:", optimo[-1])

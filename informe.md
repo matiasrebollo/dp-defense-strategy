@@ -15,7 +15,7 @@ Como se pide una solucion mediante programacion dinamica, pensemos en los casos 
 - $n=1$: Al ser la unica oportunidad de ataque, hay que atacar a los enemigos, provocando $\min(x_1, f(1))$ bajas enemigas.
 
 Sigamos con el análisis de casos sencillos.
-- $n=2$: Como **no tiene sentido no atacar en el ultimo minuto**, las posibles estrategias son atacar en ambos minutos (Ataque, Ataque), cargar el ataque por un minuto y atacar en el ultimo minuto (Cargar, Ataque). Eligiremos aquella que cause mayor daño al enemigo, o en otras palabras $\max(\min(x_2, f(2)), \min(x_1,f(1)+\min(x_1, f(1)))$.
+- $n=2$: Como **no tiene sentido no atacar en el último minuto**, las posibles estrategias son atacar en ambos minutos (Ataque, Ataque), cargar el ataque por un minuto y atacar en el ultimo minuto (Cargar, Ataque). Elegiremos aquella que cause mayor daño al enemigo, o en otras palabras $\max(\min(x_2, f(2)), \min(x_1,f(1)+\min(x_1, f(1)))$.
 - $n=3$: Tenemos el doble de estrategias que el caso anterior:
     - **Atacar**, **Atacar**, Atacar
     - **Cargar**, **Atacar**, Atacar

@@ -19,7 +19,7 @@ La función de recarga será una función monótona creciente.
 
 Como jefes estratégicos de los Dai Li, es nuestro deber determinar en qué momentos debemos realizar estos ataques de fisuras para eliminar a tantos enemigos en total como sea posible.
 
-Consigna
+## Consigna
 
 Hacer un análisis del problema, plantear la ecuación de recurrencia correspondiente y proponer un algoritmo por programación dinámica que obtenga la solución óptima al problema planteado: Dada la secuencia de de llegadas de enemigos x1,x2,⋯ ,xn y la función de recarga f(⋅) (dada por una tabla, con lo cual puede considerarse directamente como una secuencia de valores), determinar la cantidad máxima de enemigos que se pueden atacar, y en qué momentos se harían los correspondientes ataques.
 
@@ -33,3 +33,20 @@ De las pruebas anteriores, hacer también mediciones de tiempos para corroborar 
 
 Agregar cualquier conclusión que parezca relevante.
 
+## Ejecución
+
+Para ejecutar el programa, ingresar en una terminal:
+- `python main.py <path-a-dataset>`\
+o
+- `py main.py <path-a-dataset>`
+
+Por ejemplo: `py main.py pruebas_drive\10.txt`
+
+El programa imprimirá por pantalla la estrategia óptima calculada y la cantidad de tropas eliminadas con la misma.
+
+Aclaración: el path al dataset debe ser el relativo desde el root del repositorio.
+
+Para ejecutar los tests, ingresar en una terminal:
+- `python tests.py`\
+o
+- `py tests.py`
