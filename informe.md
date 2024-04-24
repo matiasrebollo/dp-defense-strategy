@@ -24,7 +24,14 @@ $$\max(\min(x_1,f(1))+\min(x_2, f(1)), \min(x_2, f(2)))$$
     - Atacar, Cargar, Atacar
     - Cargar, Cargar, Atacar
 
-Si observamos bien, las primeras dos estrategias tienen como subproblema el del punto anterior.
+Si observamos bien, las primeras dos estrategias tienen como subproblema el del punto anterior, y como una vez se ataca se reinicia la carga del ataque sin importar todo lo que vino antes, entre estas dos opciones debemos elegir la que mas enemigos haya derrotado, y este paso ya lo hemos calculado en el paso anterior, con n=2.
+
+El problema no acaba ahi, pues puede ser que la estrategia correcta este entre la últimas dos, las cuales de manera similar a lo dicho recientemente,  incluyen un subproblema anterior, en este caso para n=1 y n=0, y en cada caso hay que tener en cuenta que la carga ira creciendo, pues es una funcion monotona creciente.
+Para resumir, podemos escribir la ecuacion:
+
+$$\max(OPT(0) + \min(x_3,f(3)), OPT(1) + \min(x_3, f(2)), OPT(2) + \min(x_3, f(1)))$$
+
+Aplicando la ecucion para cualquier minuto $n$, obtenemos la ecuacion de recurrencia:
 
 ### Ecuación de Recurrencia
 
@@ -60,6 +67,9 @@ def construir_estrategia(ataques, potencias, optimos):
 ```
 
 ## Análisis Complejidad
+El algoritmo consta de dos partes: 
+1- Obtener los optimos para cada subproblema
+2- Reconstruir la estrategia optima a partir del arreglo de optimos
 Complejidad final: $\mathcal{O}(n²)$
 
 # Análisis variabilidad de valores
