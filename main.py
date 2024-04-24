@@ -12,7 +12,7 @@ def obtener_optimos(ataques, potencias):
     optimos = [0]*(n+1)
     for i in range(1, len(optimos)):
         # OPT(n) = max(OPT(0) + min(x_n, f(n)), OPT(1) + min(x_n, f(n-1)), ... , OPT(n-1) + min(x_n, f(1)))
-        optimos[i] = max(map(lambda opt, c: opt + min(ataques[i-1],potencias[i-c-1]), optimos[:i], range(i))) # O(n)
+        optimos[i] = max(map(lambda opt, k: opt + min(ataques[i-1],potencias[i-1-k]), optimos[:i], range(i))) # O(n)
     return optimos
 
 # Devuelve los minutos en los cuales se debe atacar
@@ -21,7 +21,7 @@ def construir_estrategia(ataques, potencias, optimos):
     i = len(optimos)-1
     while i > 0:
         solucion.append(i)
-        anteriores = list(map(lambda opt, c: opt + min(ataques[i-1],potencias[i-c-1]), optimos[:i], range(i)))
+        anteriores = list(map(lambda opt, k: opt + min(ataques[i-1],potencias[i-1-k]), optimos[:i], range(i)))
         i = anteriores.index(optimos[i])
     return list(reversed(solucion))
 

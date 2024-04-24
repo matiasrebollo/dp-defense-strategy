@@ -1,7 +1,8 @@
 # Trabajo Práctico 2: Programación Dinámica para el Reino de la Tierra
 
 El presente trabajo busca evaluar el desarrollo y análisis de un algoritmo de Programación Dinámica. La fecha de entrega del mismo es el 6/05.
-Introducción
+
+## Introducción
 
 Es el año 80 DG. Ba Sing Se es una gran ciudad del Reino de la Tierra. Allí tiene lugar el palacio Real. Por esto, se trata de una ciudad fortificada, que ha logrado soportar durante más de 110 años los ataques de la Nación del Fuego. Los Dai Li (policía secreta de la ciudad) la defienden utilizando técnicas de artes marciales, Tierra-control, y algunos algoritmos. Nosotros somos los jefes estratégicos de los Dai Li.
 
@@ -33,7 +34,7 @@ De las pruebas anteriores, hacer también mediciones de tiempos para corroborar 
 
 Agregar cualquier conclusión que parezca relevante.
 
-## Ejecución
+# Ejecución
 
 Para ejecutar el programa, ingresar en una terminal:
 - `python main.py <path-a-dataset>`\
