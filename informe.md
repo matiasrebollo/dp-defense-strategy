@@ -40,19 +40,19 @@ A continuación expondremos el código de nuestro algoritmo junto con el respect
 
 def obtener_optimo(ataques, potencias):
     n = len(ataques)
-    optimo = [0]*(n+1)
-    for i in range(1, len(optimo)):
-        optimo[i] = max(map(lambda x, c: x + min(ataques[i-1],potencias[i-c-1]), optimo[:i], range(i))) 
-    return optimo
+    optimos = [0]*(n+1)
+    for i in range(1, len(optimos)):
+        optimos[i] = max(map(lambda opt, c: opt + min(ataques[i-1],potencias[i-c-1]), optimos[:i], range(i))) 
+    return optimos
 
 
-def construir_estrategia(ataques, potencias, optimo):
+def construir_estrategia(ataques, potencias, optimos):
     solucion = []
-    i = len(optimo)-1
+    i = len(optimos)-1
     while i > 0:
         solucion.append(i)
-        anteriores = list(map(lambda x, c: x + min(ataques[i-1],potencias[i-c-1]), optimo[:i], range(i)))
-        i = anteriores.index(optimo[i])
+        anteriores = list(map(lambda opt, c: opt + min(ataques[i-1],potencias[i-c-1]), optimos[:i], range(i)))
+        i = anteriores.index(optimos[i])
     return list(reversed(solucion))
 
 ```
