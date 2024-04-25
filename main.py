@@ -10,8 +10,10 @@ def cargar_archivo(archivo):
 def obtener_optimos(ataques, potencias):
     n = len(ataques)
     optimos = [0]*(n+1)
+    #Se itera todos  los optimos
     for i in range(1, n + 1):
         maximo = 0
+        #Se recorren los minutos para encontrar todos los valores posibles sumado al ataque final y se queda con el mayor
         for k in range(i):
             valor_actual = optimos[k] + min(ataques[i - 1], potencias[i - 1 - k])
             if valor_actual > maximo:
@@ -29,18 +31,21 @@ def obtener_optimos(ataques, potencias):
 def construir_estrategia(ataques, potencias, optimos):
     solucion = []
     i = len(optimos) - 1
+    #Se arranca de atras para adelante
     while i > 0:
-        solucion.append(i)
-        posibles_optimos = []
+        #Se agrega el minuto a la solucion
+        solucion.append(i-1) #Aca hago i-1 porque sino queda desfazado (optimos tiene un indice mas que los ataques)
+        #Se recorren los valores posibles para llegar al optimo actual
         for k in range(i):
             valor = optimos[k] + min(ataques[i - 1], potencias[i - 1 - k])
-            posibles_optimos.append(valor)
-        for k in range(i):
-            if posibles_optimos[k] == optimos[i]:
+            #Aquel que sea igual al optimos[i] que estamos mirando, es la ubicacion donde atacamos por ultima vez
+            #(sin contar la actual)
+            if valor == optimos[i]:
+                #Actualizamos indice yendo a esa ubicacion
                 i = k
-                break
+                break    
     solucion.reverse()
-    return [x - 1 for x in solucion]
+    return solucion
 
    #dejo comentado por las dudas 
     #while i > 0:
