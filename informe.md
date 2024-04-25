@@ -39,6 +39,10 @@ $$
 OPT(n) = \max_{0\le k\lt n}\left(OPT(k) +\min(x_{n},f(n-k))\right)
 $$
 
+Entonces proponemos el siguiente algoritmo:
+1. Para cada minuto $i$ calculo la mayor cantidad de enemigos derrotados aplicando la ecuacion de recurrencia.
+2. Para construir la estrategia empiezo desde el ultimo optimo calculado, agrego su respectivo minuto a la solucion, y mediante la ecuacion de recurrencia obtengo la cantidad de enemigos derrotados para cada minuto anterior, luego busco el optimo actual en esta lista (obtengo su indice) y repito todo desde ese minuto hasta llegar al inicio.  
+
 # Algoritmo y Complejidad
 A continuación expondremos el código de nuestro algoritmo junto con el respectivo análisis de complejidad.
 
