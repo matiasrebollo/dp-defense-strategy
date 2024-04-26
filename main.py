@@ -34,7 +34,7 @@ def construir_estrategia(ataques, potencias, optimos):
     #Se arranca de atras para adelante
     while i > 0:
         #Se agrega el minuto a la solucion
-        solucion.append(i-1) #Aca hago i-1 porque sino queda desfazado (optimos tiene un indice mas que los ataques)
+        solucion.append(i) #Aca hago i-1 porque sino queda desfazado (optimos tiene un indice mas que los ataques)
         #Se recorren los valores posibles para llegar al optimo actual
         for k in range(i):
             valor = optimos[k] + min(ataques[i - 1], potencias[i - 1 - k])
