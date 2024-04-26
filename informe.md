@@ -72,9 +72,10 @@ def construir_estrategia(ataques, potencias, optimos):
 
 ## Análisis Complejidad
 El algoritmo consta de dos partes: 
-1- Obtener los optimos para cada subproblema
-2- Reconstruir la estrategia optima a partir del arreglo de optimos
-Complejidad final: $\mathcal{O}(n²)$
+1. Obtener los optimos para cada subproblema: Para eso se iterara por cada oleada de enemigos (un total de $n$ veces) y para cada iteracion aplicaremos la ecuacion de recurrenciapara obtener el optimo actual, iterando por las soluciones a los subproblemas ya calculados. Esto ultimo puede acotarse a $\mathcal{O}(n)$. Luego la complejidad temporal de esta parte queda en $n\mathcal{O}(n) = \mathcal{O}(n²) $.
+2. Reconstruir la estrategia optima a partir del arreglo de optimos: partiendo desde el ultimo minuto, buscamos el optimo actual entre las propuestas de los subproblemas anteriores en $\mathcal{O}(n)$ y repetimos lo anterior desde el resultado de la busqueda. En el peor de los casos atacamos en todos los minutos, por lo que la complejidad queda como $n\mathcal{O}(n) = \mathcal{O}(n²) $
+
+Complejidad final: $\mathcal{O}(n²) + \mathcal{O}(n²) = \mathcal{O}(n²)$ en funcion del tamaño del arreglo de entrada.
 
 # Análisis variabilidad de valores
 
