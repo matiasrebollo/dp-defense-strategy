@@ -4,11 +4,18 @@ El objetivo del presente trabajo es idear un algoritmo que indique la estrategia
 
 # Análisis del Problema
 
-Para un período de $n$ minutos, se consta de dos conjuntos de datos:
+Primero definimos las variables de nuestro problema:
+- $n$ la duracion (en minutos) del ataque enemigo.
 - $x_i$: la cantidad de enemigos que llegarán en el minuto $i$.
-- $f(i)$: la potencia del ataque de los Dai Li habiendo pasado $i$ minutos desde el último ataque.
+- $f(i)$: la potencia del ataque de los Dai Li, tras ser cargado por $i$ minutos.
 
-Nuestro objetivo es decidir cuáles son los minutos cruciales para atacar a los enemigos y así maximizar sus bajas.
+Además, se debe tener en cuenta lo siguiente:
+- Si se decide atacar a los enemigos en el minuto $k$, habiendo pasado $i$ minutos desde el ultimo ataque, el total de bajas enemigas será de $\min(x_i, f(i))$
+- Luego de atacar, se pierde la carga acumulada.
+
+Nuestra tarea es decidir cuáles son los minutos cruciales para atacar a los enemigos y así maximizar sus bajas.
+
+### Análisis casos bases
 
 Como se pide una solución mediante programación dinámica, pensemos en los casos bases:
 - $n=0$: No hay ataque, no hay bajas enemigas.
@@ -24,24 +31,34 @@ $$\max(\min(x_1,f(1))+\min(x_2, f(1)), \min(x_2, f(2)))$$
     - Atacar, Cargar, Atacar
     - Cargar, Cargar, Atacar
 
-Si observamos bien, las primeras dos estrategias tienen como subproblema el del punto anterior, y como una vez se ataca se reinicia la carga del ataque sin importar todo lo que vino antes, entre estas dos opciones debemos elegir la que mas enemigos haya derrotado, y este paso ya lo hemos calculado en el paso anterior, con n=2.
+    Si observamos bien, las primeras dos estrategias tienen como subproblema el del punto anterior, y como una vez se ataca se reinicia la carga del ataque sin importar todo lo que vino antes, entre estas dos opciones debemos elegir la que mas enemigos haya derrotado, y este paso ya lo hemos calculado en el paso anterior, con $n=2$.
 
-El problema no acaba ahi, pues puede ser que la estrategia correcta este entre la últimas dos, las cuales de manera similar a lo dicho recientemente,  incluyen un subproblema anterior, en este caso para n=1 y n=0, y en cada caso hay que tener en cuenta que la carga ira creciendo, pues es una funcion monotona creciente.
+    El problema no acaba ahi, pues puede ser que la estrategia correcta este entre la últimas dos, las cuales de manera similar a lo dicho recientemente,  incluyen un subproblema anterior, en este caso para n=1 y n=0, y en cada caso hay que tener en cuenta que la carga ira creciendo, pues es una funcion monotona creciente.
 Para resumir, podemos escribir la ecuacion:
 
 $$\max(OPT(0) + \min(x_3,f(3)), OPT(1) + \min(x_3, f(2)), OPT(2) + \min(x_3, f(1)))$$
 
 Aplicando la ecucion para cualquier minuto $n$, obtenemos la ecuacion de recurrencia:
 
-### Ecuación de Recurrencia
+#### Ecuación de Recurrencia
 
 $$
 OPT(n) = \max_{0\le k\lt n}\left(OPT(k) +\min(x_{n},f(n-k))\right)
 $$
 
-Entonces proponemos el siguiente algoritmo:
-1. Para cada minuto $i$ calculo la mayor cantidad de enemigos derrotados aplicando la ecuacion de recurrencia.
-2. Para construir la estrategia empiezo desde el ultimo optimo calculado, agrego su respectivo minuto a la solucion, y mediante la ecuacion de recurrencia obtengo la cantidad de enemigos derrotados para cada minuto anterior, luego busco el optimo actual en esta lista (obtengo su indice) y repito todo desde ese minuto hasta llegar al inicio.  
+### Algoritmo Propuesto
+
+Proponemos el siguiente algoritmo:
+1. **Obtengo los optimos para cada subproblema**:
+    + Itero por cada minuto $i$.
+    + Por cada iteración calculo el optimo mediante la ecuacion de recurrencia.
+
+2. **Construir la estrategia**:
+    + Empiezo desde el ultimo optimo calculado.
+    + Agrego su respectivo minuto a la solucion.
+    + Busco cuál fue el minuto donde se ataco para llegar al óptimo.
+    + A partir de este minuto, repito los pasos anteriores hasta llegar al minuto 0.
+  
 
 # Algoritmo y Complejidad
 A continuación expondremos el código de nuestro algoritmo junto con el respectivo análisis de complejidad.
@@ -51,29 +68,52 @@ A continuación expondremos el código de nuestro algoritmo junto con el respect
 ```python
 # Código en main.py
 
-def obtener_optimo(ataques, potencias):
-    n = len(ataques)
+def obtener_optimo(enemigos, potencias):
+    n = len(enemigos)
     optimos = [0]*(n+1)
-    for i in range(1, len(optimos)):
-        optimos[i] = max(map(lambda opt, k: opt + min(ataques[i-1],potencias[i-1-k]), optimos[:i], range(i))) 
+    for i in range(1, n + 1):
+        maximo = 0
+
+        for k in range(i):
+            valor_actual = optimos[k] + min(enemigos[i - 1], potencias[i - 1 - k])
+            maximo = max(valor_actual, maximo)
+        optimos[i] = maximo
+
     return optimos
 
 
-def construir_estrategia(ataques, potencias, optimos):
+def construir_estrategia(enemigos, potencias, optimos):
+    def construir_estrategia(enemigos, potencias, optimos):
     solucion = []
-    i = len(optimos)-1
+    i = len(enemigos)
     while i > 0:
         solucion.append(i)
-        anteriores = list(map(lambda opt, k: opt + min(ataques[i-1],potencias[i-1-k]), optimos[:i], range(i)))
-        i = anteriores.index(optimos[i])
-    return list(reversed(solucion))
 
+        for k in range(i):
+            valor = optimos[k] + min(enemigos[i - 1], potencias[i - 1 - k])
+            if valor == optimos[i]:
+                i = k
+                break    
+
+    solucion.reverse()
+    return solucion
 ```
 
 ## Análisis Complejidad
 El algoritmo consta de dos partes: 
-1. Obtener los optimos para cada subproblema: Para eso se iterara por cada oleada de enemigos (un total de $n$ veces) y para cada iteracion aplicaremos la ecuacion de recurrenciapara obtener el optimo actual, iterando por las soluciones a los subproblemas ya calculados. Esto ultimo puede acotarse a $\mathcal{O}(n)$. Luego la complejidad temporal de esta parte queda en $n\mathcal{O}(n) = \mathcal{O}(n²) $.
-2. Reconstruir la estrategia optima a partir del arreglo de optimos: partiendo desde el ultimo minuto, buscamos el optimo actual entre las propuestas de los subproblemas anteriores en $\mathcal{O}(n)$ y repetimos lo anterior desde el resultado de la busqueda. En el peor de los casos atacamos en todos los minutos, por lo que la complejidad queda como $n\mathcal{O}(n) = \mathcal{O}(n²) $
+
+1. **Obtener los optimos para cada subproblema**: 
+    + Iterar cada oleada de enemigos (un total de $n$ veces). 
+    + En cada iteracion aplicar la ecuacion de recurrencia, iterando por las soluciones de los $k$ subproblemas ya calculados. $\mathcal{O}(k)$
+    
+    Como $k \le n$, la complejidad temporal de esta parte queda en $n\cdot \mathcal{O}(k) = n\cdot\mathcal{O}(n) =\mathcal{O}(n²) $.
+
+
+2. **Reconstruir la estrategia optima a partir del arreglo de optimos**:
+    + Buscar el óptimo actual entre las propuestas de los subproblemas anteriores: $\mathcal{O}(n)$ 
+    + Repetir lo anterior desde el resultado de la busqueda, hasta llegar al inicio ($m$ veces para una solucion de $m$ ataques).
+
+    Como $m\le n$, la complejidad queda como $m\cdot\mathcal{O}(n) = n\cdot\mathcal{O}(n) = \mathcal{O}(n²) $
 
 Complejidad final: $\mathcal{O}(n²) + \mathcal{O}(n²) = \mathcal{O}(n²)$ en funcion del tamaño del arreglo de entrada.
 
