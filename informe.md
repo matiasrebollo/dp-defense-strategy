@@ -125,10 +125,11 @@ Se detectó un caso particular
 
 En otras palabras, $f(1) > x_i \forall i$. Estamos en un caso donde la diferencia entre cargar el ataque o no es nula, pues al final terminan eliminando la misma cantidad de enemigos. Por ende, la mejor opción siempre será _atacar en todos los turnos_, y la _cantidad total de bajas enemigas será equivalente al total de enemigo_.
 
-No es una situacion que afecte la optimalidad de nuestro algoritmo, pues naturalmente nuestro algoritmo eligirá las opciones que más le sirvan, y sabrá detectar con facilidad que atacar varias veces con el mismo impacto será mejor que cargar el ataque y conseguir un resultado menor. 
-
-Tampoco será afectada la complejidad, debido a que la primer parte de nuestro algoritmo no logra salvarse de iterar por cada posible óptimo para cada minuto (al menos en nuestra impementación). 
+No afecta la complejidad, debido a que la primer parte de nuestro algoritmo no logra salvarse de iterar por cada posible óptimo para cada minuto (al menos en nuestra impementación). 
 Cabe mencionar que, si bien no afecta la complejidad total, al atacar en todos los minutos, terminaremos en el peor caso de la reconstruccion de la solución al tener que realizar operaciones lineales para cada minuto.
 
+Tampoco es una situación que afecte la optimalidad de nuestro algoritmo, pues al tratarse de un algoritmo por programación dinámica, este _explora de manera implícita el espacio de posibilidades_, por lo que al final eligirá las opciones que más le sirvan, y sabrá detectar con facilidad que atacar varias veces con el mismo impacto será mejor que cargar el ataque y conseguir un resultado menor. 
+
+# Casos de Prueba
 
 # Mediciones
