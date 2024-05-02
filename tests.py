@@ -13,19 +13,26 @@ def calcular_tropas_eliminadas(enemigos, potencias, estrategia):
 
         return cant_tropas
 
-def obtener_optimo_fb(enemigos, potencias, i, optimo_actual, ultimo_ataque):
+def obtener_optimo_bt(enemigos, potencias, optimo, i, optimo_actual, ultimo_ataque):
     # Caso base: cuando ya se llego al minuto final
     if i == len(enemigos):
         return optimo_actual
     
+    # Poda
+    if optimo_actual + sum(enemigos[i:]) <= optimo:
+        return optimo
+    
     # Atacar en el minuto actual
     nuevo_optimo = optimo_actual + min(enemigos[i], potencias[i-ultimo_ataque])
-    optimo_atacando = obtener_optimo_fb(enemigos, potencias, i+1, nuevo_optimo, i+1)
+    optimo_atacando = obtener_optimo_bt(enemigos, potencias, optimo, i+1, nuevo_optimo, i+1)
     
     # Cargar en el minuto actual
-    optimo_sin_atacar = obtener_optimo_fb(enemigos, potencias, i+1, optimo_actual, ultimo_ataque)
+    optimo_sin_atacar = obtener_optimo_bt(enemigos, potencias, optimo, i+1, optimo_actual, ultimo_ataque)
     
     return max(optimo_atacando, optimo_sin_atacar)
+
+def verificar_optimalidad(enemigos, potencias, optimo):
+    return optimo == obtener_optimo_bt(enemigos, potencias, optimo, 0, 0, 0)
 
 class Test(unittest.TestCase):
     def test_drive_5(self):
@@ -34,6 +41,7 @@ class Test(unittest.TestCase):
         estrategia = construir_estrategia(enemigos, potencias, optimos)
         self.assertEqual(optimos[-1], 1413)
         self.assertEqual(calcular_tropas_eliminadas(enemigos, potencias, estrategia), 1413)
+        assert verificar_optimalidad(enemigos, potencias, optimos[-1])             
         
     def test_drive_10(self):
         enemigos, potencias = cargar_archivo('pruebas_drive/10.txt')
@@ -41,6 +49,7 @@ class Test(unittest.TestCase):
         estrategia = construir_estrategia(enemigos, potencias, optimos)
         self.assertEqual(optimos[-1], 2118)
         self.assertEqual(calcular_tropas_eliminadas(enemigos, potencias, estrategia), 2118)
+        assert verificar_optimalidad(enemigos, potencias, optimos[-1])              
 
     def test_drive_10_bis(self):
         enemigos, potencias = cargar_archivo('pruebas_drive/10_bis.txt')
@@ -48,6 +57,7 @@ class Test(unittest.TestCase):
         estrategia = construir_estrategia(enemigos, potencias, optimos)
         self.assertEqual(optimos[-1], 1237)
         self.assertEqual(calcular_tropas_eliminadas(enemigos, potencias, estrategia), 1237)
+        assert verificar_optimalidad(enemigos, potencias, optimos[-1])              
 
     def test_drive_20(self):
         enemigos, potencias = cargar_archivo('pruebas_drive/20.txt')
@@ -55,7 +65,7 @@ class Test(unittest.TestCase):
         estrategia = construir_estrategia(enemigos, potencias, optimos)
         self.assertEqual(optimos[-1], 11603)
         self.assertEqual(calcular_tropas_eliminadas(enemigos, potencias, estrategia), 11603)
-        self.assertEqual(optimos[-1], obtener_optimo_fb(enemigos, potencias, 0, 0, 0))        
+        assert verificar_optimalidad(enemigos, potencias, optimos[-1])               
 
     def test_drive_50(self):
         enemigos, potencias = cargar_archivo('pruebas_drive/50.txt')
@@ -63,6 +73,7 @@ class Test(unittest.TestCase):
         estrategia = construir_estrategia(enemigos, potencias, optimos)
         self.assertEqual(optimos[-1], 3994)
         self.assertEqual(calcular_tropas_eliminadas(enemigos, potencias, estrategia), 3994)
+        # assert verificar_optimalidad(enemigos, potencias, optimos[-1])  
 
     def test_drive_100(self):
         enemigos, potencias = cargar_archivo('pruebas_drive/100.txt')
