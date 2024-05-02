@@ -140,9 +140,9 @@ Los casos de prueba abarcan diversas situaciones para identificar posibles fallo
 
 - **Un solo valor**: para asegurar que el algoritmo ataque ante una sola tropa de enemigos.
 
-- **Dos valores**: para asegurar que el algoritmo elija la mejor opción entre Cargar, Atacar o Atacar, Atacar ante dos tropas de enemigos.
+- **Dos valores**: para asegurar que el algoritmo elija la mejor opción entre cargar y atacar o atacar y atacar, ante dos tropas de enemigos.
 
-- **Patrones de enemigos**: entre ellos se incluyen cantidades de enemigos crecientes, decrecientes, constantes y variaciones extremas. Estos casos aseguran que el algoritmo maneje correctamente estas situaciones y elija sabiamente cuándo atacar y cuándo recargar.
+- **Patrones de enemigos**: entre ellos se incluyen cantidades de enemigos crecientes, decrecientes, constantes y variaciones extremas. Estos casos aseguran que el algoritmo maneje correctamente estas situaciones y elija sabiamente cuándo atacar y cuándo cargar.
 
 - **Valores muy grandes**: para probar la resistencia del algoritmo ante valores altos y detectar posibles problemas de precisión.
 
