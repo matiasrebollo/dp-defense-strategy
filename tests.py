@@ -14,19 +14,14 @@ def calcular_tropas_eliminadas(enemigos, potencias, estrategia):
         return cant_tropas
 
 def obtener_optimo_bt(enemigos, potencias, optimo, i, optimo_actual, ultimo_ataque):
-    # Caso base: cuando ya se llego al minuto final
     if i == len(enemigos):
         return optimo_actual
     
-    # Poda
     if optimo_actual + sum(enemigos[i:]) <= optimo:
         return optimo
     
-    # Atacar en el minuto actual
     nuevo_optimo = optimo_actual + min(enemigos[i], potencias[i-ultimo_ataque])
     optimo_atacando = obtener_optimo_bt(enemigos, potencias, optimo, i+1, nuevo_optimo, i+1)
-    
-    # Cargar en el minuto actual
     optimo_sin_atacar = obtener_optimo_bt(enemigos, potencias, optimo, i+1, optimo_actual, ultimo_ataque)
     
     return max(optimo_atacando, optimo_sin_atacar)
@@ -73,7 +68,6 @@ class Test(unittest.TestCase):
         estrategia = construir_estrategia(enemigos, potencias, optimos)
         self.assertEqual(optimos[-1], 3994)
         self.assertEqual(calcular_tropas_eliminadas(enemigos, potencias, estrategia), 3994)
-        # assert verificar_optimalidad(enemigos, potencias, optimos[-1])  
 
     def test_drive_100(self):
         enemigos, potencias = cargar_archivo('pruebas_drive/100.txt')
