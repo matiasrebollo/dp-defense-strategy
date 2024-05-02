@@ -10,7 +10,7 @@ def cargar_archivo(archivo):
 def obtener_optimos(enemigos, potencias):
     n = len(enemigos)
     optimos = [0]*(n+1)
-    #Se itera todos  los optimos
+    #Se iteran todos los optimos
     for i in range(1, n + 1):
         maximo = 0
         #Se recorren los minutos para encontrar todos los valores posibles sumado al ataque final y se queda con el mayor
