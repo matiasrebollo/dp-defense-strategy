@@ -132,16 +132,21 @@ Tampoco es una situación que afecte la optimalidad de nuestro algoritmo, pues a
 
 # Casos de Prueba
 
-Se realizaron varios ejemplos de ejecución para validar la eficacia y optimalidad del algoritmo implementado. Ademas de los proporcionados por la cátedra, se incluyeron casos adicionales para verificar la cobertura y robustez del algoritmo. Estos se encuentran en la carpeta 'ejemplos' del repositorio.
+Se realizaron varios ejemplos de ejecución para validar la eficacia y optimalidad del algoritmo implementado. Además de los proporcionados por la cátedra, se incluyeron casos adicionales para verificar la cobertura y robustez del algoritmo. Estos se encuentran en la carpeta 'ejemplos' del repositorio.
 
-Los casos de prueba abarcan diversas situaciones para identificar posibles fallos y asegurar el funcionamiento del algoritmo en casos no contemplados inicialmente. Entre los ejemplos de ejecución se encuentran:
+Los casos de prueba abarcan diversas situaciones para identificar posibles fallos y asegurar el funcionamiento del algoritmo en escenarios no contemplados inicialmente. Entre los ejemplos de ejecución se encuentran:
 
-    **Vector vacio**: para asegurar que el algoritmo maneje correctamente situaciones sin enemigos.
-    **Un solo valor**: para asegurar que el algoritmo ataque ante una sola tropa de enemigos.
-    **Dos valores**: para asegurar que el algoritmo elija la mejor opción entre Cargar, Atacar o Atacar, Atacar ante dos tropas de enemigos.
-    **Patrones de enemigos**: entre ellos se encuentran cantidad de enemigos creciente, decreciente, constante y variaciones extremas. Esto para asegurar que el algoritmo maneje correctamente estas situaciones y elija sabiamente cuando Atacar y cuando Cargar.
-    **Valores muy grandes**: para probar la resistencia del algoritmo ante valores altos y detectar posibles problemas de precisión.
+- **Vector vacío**: para asegurar que el algoritmo maneje correctamente situaciones sin enemigos.
 
-El algoritmo respondió satisfactoriamente a todos estos casos, demostrando su eficacia y capacidad de adaptarse a una amplia gama de situaciones, siendo este óptimo con todos ellos.
+- **Un solo valor**: para asegurar que el algoritmo ataque ante una sola tropa de enemigos.
+
+- **Dos valores**: para asegurar que el algoritmo elija la mejor opción entre Cargar, Atacar o Atacar, Atacar ante dos tropas de enemigos.
+
+- **Patrones de enemigos**: entre ellos se incluyen cantidades de enemigos crecientes, decrecientes, constantes y variaciones extremas. Estos casos aseguran que el algoritmo maneje correctamente estas situaciones y elija sabiamente cuándo atacar y cuándo recargar.
+
+- **Valores muy grandes**: para probar la resistencia del algoritmo ante valores altos y detectar posibles problemas de precisión.
+
+El algoritmo respondió satisfactoriamente a todos estos casos, demostrando su eficacia y capacidad de adaptarse a una amplia gama de situaciones. Esto indica que el algoritmo es óptimo en todos los escenarios evaluados.
+
 
 # Mediciones
