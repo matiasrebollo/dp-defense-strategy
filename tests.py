@@ -1,33 +1,6 @@
 import unittest
 from main import cargar_archivo, construir_estrategia, obtener_optimos
-
-def calcular_tropas_eliminadas(enemigos, potencias, estrategia):
-        cant_tropas = 0
-        potencia = 1
-        for i in range(1, len(enemigos)+1):
-            if i in estrategia:
-                cant_tropas += min(enemigos[i-1], potencias[potencia-1])
-                potencia = 1
-            else: 
-                potencia += 1
-
-        return cant_tropas
-
-def obtener_optimo_bt(enemigos, potencias, optimo, i, optimo_actual, ultimo_ataque):
-    if i == len(enemigos):
-        return optimo_actual
-    
-    if optimo_actual + sum(enemigos[i:]) <= optimo:
-        return optimo
-    
-    nuevo_optimo = optimo_actual + min(enemigos[i], potencias[i-ultimo_ataque])
-    optimo_atacando = obtener_optimo_bt(enemigos, potencias, optimo, i+1, nuevo_optimo, i+1)
-    optimo_sin_atacar = obtener_optimo_bt(enemigos, potencias, optimo, i+1, optimo_actual, ultimo_ataque)
-    
-    return max(optimo_atacando, optimo_sin_atacar)
-
-def verificar_optimalidad(enemigos, potencias, optimo):
-    return optimo == obtener_optimo_bt(enemigos, potencias, optimo, 0, 0, 0)
+from utils import calcular_tropas_eliminadas, verificar_optimalidad  
 
 class Test(unittest.TestCase):
     def test_drive_5(self):
