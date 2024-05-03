@@ -85,7 +85,7 @@ class Test(unittest.TestCase):
         self.assertEqual(estrategia, [1])
         self.assertEqual(calcular_tropas_eliminadas(enemigos, potencias, estrategia), 33) 
 
-     def test_2(self):
+    def test_2(self):
         enemigos, potencias = cargar_archivo('ejemplos/2.txt')
         optimos = obtener_optimos(enemigos, potencias)
         estrategia = construir_estrategia(enemigos, potencias, optimos)
@@ -93,7 +93,7 @@ class Test(unittest.TestCase):
         self.assertEqual(estrategia, [2])
         self.assertEqual(calcular_tropas_eliminadas(enemigos, potencias, estrategia), 30) 
 
-     def test_enemigos_constantes(self):
+    def test_enemigos_constantes(self):
         enemigos, potencias = cargar_archivo('ejemplos/Enemigos constantes.txt')
         optimos = obtener_optimos(enemigos, potencias)
         estrategia = construir_estrategia(enemigos, potencias, optimos)
@@ -101,7 +101,7 @@ class Test(unittest.TestCase):
         self.assertEqual(estrategia, [2, 12, 22])
         self.assertEqual(calcular_tropas_eliminadas(enemigos, potencias, estrategia), 220) 
 
-     def test_enemigos_crecientes(self):
+    def test_enemigos_crecientes(self):
         enemigos, potencias = cargar_archivo('ejemplos/Enemigos crecientes.txt')
         optimos = obtener_optimos(enemigos, potencias)
         estrategia = construir_estrategia(enemigos, potencias, optimos)
