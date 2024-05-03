@@ -22,6 +22,3 @@ def obtener_optimo_bt(enemigos, potencias, optimo_pd, i, optimo_actual, ultimo_a
     optimo_sin_atacar = obtener_optimo_bt(enemigos, potencias, optimo_pd, i+1, optimo_actual, ultimo_ataque)
     
     return max(optimo_atacando, optimo_sin_atacar)
-
-def verificar_optimalidad(enemigos, potencias, optimo_pd):
-    return optimo_pd == obtener_optimo_bt(enemigos, potencias, optimo_pd, 0, 0, 0)
