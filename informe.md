@@ -2,10 +2,10 @@
 
 El objetivo del presente trabajo es idear un algoritmo que indique la estrategia de defensa óptima para defender Ba Sing Se del ataque de la Nación del Fuego. Dicho algoritmo debe implementarse mediante programación dinámica. Además, se brindará un análisis completo del problema y del algoritmo en cuestión.
 
-# Análisis del Problema
+# Análisis del problema
 
 Primero definimos las variables de nuestro problema:
-- $n$ la duracion (en minutos) del ataque enemigo.
+- $n$ la duración (en minutos) del ataque enemigo.
 - $x_i$: la cantidad de enemigos que llegarán en el minuto $i$.
 - $f(i)$: la potencia del ataque de los Dai Li, tras ser cargado por $i$ minutos.
 
@@ -15,7 +15,7 @@ Además, se debe tener en cuenta lo siguiente:
 
 Nuestra tarea es decidir cuáles son los minutos cruciales para atacar a los enemigos y así maximizar sus bajas.
 
-### Análisis casos bases
+### Análisis de casos bases
 
 Como se pide una solución mediante programación dinámica, pensemos en los casos bases:
 - $n=0$: No hay ataque, no hay bajas enemigas.
@@ -40,13 +40,13 @@ $$\max(OPT(0) + \min(x_3,f(3)), OPT(1) + \min(x_3, f(2)), OPT(2) + \min(x_3, f(1
 
 Aplicando la ecucion para cualquier minuto $n$, obtenemos la ecuacion de recurrencia:
 
-#### Ecuación de Recurrencia
+#### Ecuación de recurrencia
 
 $$
 OPT(n) = \max_{0\le k\lt n}\left(OPT(k) +\min(x_{n},f(n-k))\right)
 $$
 
-### Algoritmo Propuesto
+### Algoritmo propuesto
 
 Proponemos el siguiente algoritmo:
 1. **Obtengo los optimos para cada subproblema**:
@@ -60,7 +60,7 @@ Proponemos el siguiente algoritmo:
     + A partir de este minuto, repito los pasos anteriores hasta llegar al minuto 0.
   
 
-# Algoritmo y Complejidad
+# Algoritmo y complejidad
 A continuación expondremos el código de nuestro algoritmo junto con el respectivo análisis de complejidad.
 
 ## Implementación
@@ -99,36 +99,47 @@ def construir_estrategia(enemigos, potencias, optimos):
     return solucion
 ```
 
-## Análisis Complejidad Temporal
+## Análisis de complejidad temporal
 El algoritmo consta de dos partes: 
 
-1. **Obtener los optimos para cada subproblema**: 
+1. **Obtener los óptimos para cada subproblema**: 
     + Iterar por cada minuto $i$ (un total de $n$ veces). 
-    + En cada iteracion aplicar la ecuacion de recurrencia, iterando por las soluciones de los $k$ subproblemas ya calculados. $\mathcal{O}(k)$
+    + En cada iteracion aplicar la ecuacion de recurrencia, iterando por las soluciones de los $k$ subproblemas ya calculados: $\mathcal{O}(k)$
     
-    Como $k \le n$, la complejidad temporal de esta parte queda en $n\cdot \mathcal{O}(k) = n\cdot\mathcal{O}(n) =\mathcal{O}(n²) $.
+    Como $k \le n$, la complejidad temporal de esta parte queda en $n\cdot \mathcal{O}(k) = n\cdot\mathcal{O}(n) =\mathcal{O}(n²)$.
 
 
 2. **Reconstruir la estrategia optima a partir del arreglo de optimos**:
     + Buscar el óptimo actual entre las propuestas de los subproblemas anteriores: $\mathcal{O}(n)$ 
     + Repetir lo anterior desde el resultado de la busqueda, hasta llegar al inicio ($m$ veces para una solucion de $m$ ataques).
 
-    Como $m\le n$, la complejidad queda como $m\cdot\mathcal{O}(n) = n\cdot\mathcal{O}(n) = \mathcal{O}(n²) $
+    Como $m\le n$, la complejidad queda como $m\cdot\mathcal{O}(n) = n\cdot\mathcal{O}(n) = \mathcal{O}(n²)$
 
 Complejidad final: $\mathcal{O}(n²) + \mathcal{O}(n²) = \mathcal{O}(n²)$ en funcion del tamaño del arreglo de entrada.
 
-# Análisis variabilidad de valores
+# Análisis de variabilidad de los valores de entrada
 
-Se detectó un caso particular
+Se detectó un caso particular:
 
-### Ataque con carga minima limpia cualquier oleada de enemigos
+### Ataque con carga mínima elimina cualquier oleada de enemigos
 
-En otras palabras, $f(1) > x_i \forall i$. Estamos en un caso donde la diferencia entre cargar el ataque o no es nula, pues al final terminan eliminando la misma cantidad de enemigos. Por ende, la mejor opción siempre será _atacar en todos los turnos_, y la _cantidad total de bajas enemigas será equivalente al total de enemigo_.
+En otras palabras, $f(1) \ge x_i \forall i$. En este caso no hay diferencia entre cargar el ataque o no, pues siempre se terminan eliminando la misma cantidad de enemigos. Por ende, la mejor opción siempre será _atacar en todos los minutos_ y la _cantidad total de bajas enemigas será equivalente al total de enemigos_.
 
-No afecta la complejidad, debido a que la primer parte de nuestro algoritmo no logra salvarse de iterar por cada posible óptimo para cada minuto (al menos en nuestra impementación). 
-Cabe mencionar que, si bien no afecta la complejidad total, al atacar en todos los minutos, terminaremos en el peor caso de la reconstruccion de la solución al tener que realizar operaciones lineales para cada minuto.
+No afecta a la complejidad debido a que la primera parte de nuestro algoritmo no logra salvarse de iterar por cada óptimo para cada minuto. 
+Cabe mencionar que si bien no afecta la complejidad total, al atacar en todos los minutos terminaremos en el peor caso de la reconstrucción de la solución al tener que realizar operaciones lineales para cada minuto.
 
-Tampoco es una situación que afecte la optimalidad de nuestro algoritmo, pues al tratarse de un algoritmo por programación dinámica, este _explora de manera implícita el espacio de posibilidades_, por lo que al final eligirá las opciones que más le sirvan, y sabrá detectar con facilidad que atacar varias veces con el mismo impacto será mejor que cargar el ataque y conseguir un resultado menor. 
+Tampoco es una situación que afecte la optimalidad del algoritmo, pues al tratarse de un algoritmo de programación dinámica este _explora de manera implícita todo el espacio de posibiles soluciones_, por lo que al final eligirá las opciones que más le sirvan y podrá detectar con facilidad que atacar varias veces con el mismo impacto será mejor que cargar el ataque y conseguir un resultado menor. 
+
+Además, se discutió la idea de modificar el algoritmo general de la siguiente manera:
+
+```python
+if potencias[0] >= max(enemigos):
+   return obtener_optimos_optimizado(enemigos, potencias)
+else:
+    return obtener_optimos(enemigos, potencias)
+```
+
+Se llegó a la conclusión de no incluir esta estructura condicional ya que chequear la condición del _if_ es $\mathcal{O}(n)$ debido a la función _max()_ de Python, y en balance no es conveniente tener que realizar esta operación para todos los casos posibles simplemente para optimizar un caso muy puntual.
 
 # Casos de Prueba
 

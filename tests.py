@@ -133,6 +133,5 @@ class Test(unittest.TestCase):
         self.assertEqual(optimos[-1], obtener_optimo_bt(enemigos, potencias, 0, 0, 0, 0))        
         self.assertEqual(optimos[-1], calcular_tropas_eliminadas(enemigos, potencias, estrategia))
     
-
 if __name__ == '__main__':
     unittest.main()
