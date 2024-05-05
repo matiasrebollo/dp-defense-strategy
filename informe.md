@@ -39,7 +39,6 @@ $$\max(OPT(0) + \min(x_3,f(3)), OPT(1) + \min(x_3, f(2)), OPT(2) + \min(x_3, f(1
 #### Ecuación de recurrencia
 Extrapolando esta última ecuación para cualquier $n$, se obtiene la ecuación de recurrencia del problema:
 
-
 $$
 OPT(n) = \max_{0\le k\lt n}\left(OPT(k) +\min(x_{n},f(n-k))\right)
 $$
@@ -111,11 +110,9 @@ El algoritmo consta de dos partes:
 Complejidad total: $\mathcal{O}(n²) + \mathcal{O}(n²) = \mathcal{O}(n²)$ en función del tamaño de los arreglos de entrada.
 
 # Análisis de variabilidad de $x_i$ y $f(i)$
-
 Se detectaron dos casos particulares:
 
 ### Ataque con carga mínima elimina cualquier oleada de enemigos
-
 En otras palabras, $f(1) \ge x_i \forall i$. En este caso no hay diferencia entre cargar el ataque o no, pues siempre se terminan eliminando la misma cantidad de enemigos. Por ende, la mejor opción siempre será _atacar en todos los minutos_ y la _cantidad total de bajas enemigas será equivalente al total de enemigos_.
 
 No afecta a la complejidad debido a que la primera parte del algoritmo no logra salvarse de iterar para obtener todos los óptimos correspondientes para cada minuto. 
@@ -132,29 +129,29 @@ else:
     return obtener_optimos(enemigos, potencias)
 ```
 
-Se llegó a la conclusión de no incluir esta estructura condicional ya que chequear la condición del _if_ es $\mathcal{O}(n)$ debido a la función _max()_ de Python, y en balance no es conveniente tener que realizar esta operación para todos los casos posibles simplemente para optimizar un caso muy puntual.
+Se llegó a la conclusión de no incluir esta estructura condicional ya que chequear la condición del _if_ es $\mathcal{O}(n)$ debido a la función _max_ de Python, y en balance no es conveniente tener que realizar esta operación para todos los casos posibles simplemente para optimizar uno muy puntual.
 
-### Solo se ataca en el ultimo turno
+### Solo se ataca en el último turno
+Si bien se trata de un caso muy particular, resulta interesante por la drástica reducción en complejidad de la reconstrucción de la solución. La misma pasa a ejecutarse en $\mathcal{O}(1)$ ya que al tratarse de un único ataque y por la forma en la que el algoritmo se encuentra implementado, no es necesario iterar por todas las soluciones a los subproblemas anteriores.
 
-Si bien se trata de un caso muy particular que no está necesariamente relacionado con la variabilidad de los datos, nos parece un caso interesante por la drástica reduccion en complejidad de la reconstrucción del la solución la cual pasa a ejecutarse en $\mathcal{O}(1)$ al tratarse de un único ataque y por la forma en la nuestro algoritmo se implementa, es innecesario iterar todas las soluciones anteriores.
+Sin embargo, al igual que el caso anterior, no afecta la complejidad total pues para la obtención del óptimo se mantiene en $\mathcal{O}(n²)$.
 
-Sin embargo, al igual que el caso anterior, no afecta la complejidad pues la obtención del óptimo se mantiene una complejidad de $\mathcal{O}(n²)$
-
-# Casos de Prueba
-
-Se realizaron varios ejemplos de ejecución para validar la eficacia y optimalidad del algoritmo implementado. Además de los proporcionados por la cátedra, se incluyeron casos adicionales para verificar la cobertura y robustez del algoritmo. Estos se encuentran en la carpeta 'ejemplos' del repositorio.
+# Casos de prueba
+Se realizaron varios ejemplos de ejecución para validar la eficacia y optimalidad del algoritmo implementado. Además de los proporcionados por la cátedra, se incluyeron casos adicionales para verificar la cobertura y robustez del mismo. Estos se encuentran en la carpeta _ejemplos_ del repositorio.
 
 Los casos de prueba abarcan diversas situaciones para identificar posibles fallos y asegurar el funcionamiento del algoritmo en escenarios no contemplados inicialmente. Entre los ejemplos de ejecución se encuentran:
 
-- **Vector vacío**: para asegurar que el algoritmo maneje correctamente situaciones sin enemigos.
+- **Vector vacío**: para asegurar que el algoritmo maneje correctamente la situación sin enemigos.
 
-- **Un solo valor**: para asegurar que el algoritmo ataque ante una sola tropa de enemigos.
+- **Un solo valor**: para aseverar que el algoritmo ataque ante una sola tropa de enemigos.
 
-- **Dos valores**: para asegurar que el algoritmo elija la mejor opción entre cargar y atacar o atacar y atacar, ante dos tropas de enemigos.
+- **Dos valores**: para confirmar que el algoritmo elija la mejor opción entre cargar y atacar o atacar y atacar ante la llegada de dos tropas de enemigos.
 
-- **Patrones de enemigos**: entre ellos se incluyen cantidades de enemigos crecientes, decrecientes, constantes y variaciones extremas. Estos casos aseguran que el algoritmo maneje correctamente estas situaciones y elija sabiamente cuándo atacar y cuándo cargar.
+- **Distintos patrones de enemigos**: entre ellos se incluyen cantidades de enemigos crecientes, decrecientes, constantes y variaciones extremas. Estos casos aseguran que el algoritmo maneje correctamente estas situaciones y elija sabiamente cuándo atacar y cuándo cargar.
 
 - **Valores muy grandes**: para probar la resistencia del algoritmo ante valores altos y detectar posibles problemas de precisión.
+
+Para evaluar la optimalidad se desarrolló un algoritmo de backtracking y una función auxiliar para calcular la cantidad de tropas eliminadas dada una determinada estrategia. El código de ambos se encuentra en _utils.py_.
 
 El algoritmo respondió satisfactoriamente a todos estos casos, demostrando su eficacia y capacidad de adaptarse a una amplia gama de situaciones. Esto indica que el algoritmo es óptimo en todos los escenarios evaluados.
 
@@ -166,3 +163,5 @@ Para ello se generaron muestras aleatorias de $x_i$ y $f(\cdot)$ de tamaño $n$,
 ![grafico complejidad](img/grafico_complejidad.png "Grafico complejidad")
 
 Podemos observar que hay una similitud notable entre los graficos, confirmando que la complejidad del algoritmo es cuadratica.
+
+# Conclusiones
