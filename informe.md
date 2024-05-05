@@ -38,6 +38,8 @@ $$\max(OPT(0) + \min(x_3,f(3)), OPT(1) + \min(x_3, f(2)), OPT(2) + \min(x_3, f(1
 
 #### Ecuación de recurrencia
 Extrapolando esta última ecuación para cualquier $n$, se obtiene la ecuación de recurrencia del problema:
+
+
 $$
 OPT(n) = \max_{0\le k\lt n}\left(OPT(k) +\min(x_{n},f(n-k))\right)
 $$
