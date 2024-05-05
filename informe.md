@@ -109,7 +109,7 @@ El algoritmo consta de dos partes:
 
 Complejidad total: $\mathcal{O}(n²) + \mathcal{O}(n²) = \mathcal{O}(n²)$ en función del tamaño de los arreglos de entrada.
 
-# Análisis de variabilidad de $x_i$ y $f(i)$
+# Análisis de variabilidad de $x_i$ y $f(\cdot)$
 Se detectaron dos casos particulares:
 
 ### Ataque con carga mínima elimina cualquier oleada de enemigos
@@ -151,7 +151,7 @@ Los casos de prueba abarcan diversas situaciones para identificar posibles fallo
 
 - **Valores muy grandes**: para probar la resistencia del algoritmo ante valores altos y detectar posibles problemas de precisión.
 
-Para evaluar la optimalidad se desarrolló un algoritmo de backtracking y una función auxiliar para calcular la cantidad de tropas eliminadas dada una determinada estrategia. El código de ambos se encuentra en _utils.py_.
+Para evaluar la optimalidad se desarrolló un algoritmo de backtracking y una función auxiliar para calcular la cantidad de tropas eliminadas dada una determinada estrategia. El código de ambos se encuentra en _utils.py_ y los tests realizados en _tests.py_.
 
 El algoritmo respondió satisfactoriamente a todos estos casos, demostrando su eficacia y capacidad de adaptarse a una amplia gama de situaciones. Esto indica que el algoritmo es óptimo en todos los escenarios evaluados.
 
