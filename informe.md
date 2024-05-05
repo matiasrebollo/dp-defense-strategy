@@ -103,7 +103,7 @@ El algoritmo consta de dos partes:
 
 
 2. **Reconstruir la estrategia a partir del arreglo de óptimos**:
-    + Buscar cómo se llegó al óptimo actual entre las propuestas de los subproblemas anteriores: $\mathcal{O}(n)$ 
+    + Buscar cómo se llegó al óptimo actual entre las propuestas de los subproblemas anteriores (búsqueda lineal): $\mathcal{O}(n)$ 
     + Repetir lo anterior desde el minuto resultado de la búsqueda hasta llegar al inicio ($m$ veces para una solución de $m$ ataques): $\mathcal{O}(m)$
 
     Como $m\le n$, la complejidad queda como $\mathcal{O}(n)\cdot\mathcal{O}(m) = \mathcal{O}(n)\cdot\mathcal{O}(n) = \mathcal{O}(n²)$
@@ -112,7 +112,7 @@ Complejidad total: $\mathcal{O}(n²) + \mathcal{O}(n²) = \mathcal{O}(n²)$ en f
 
 # Análisis de variabilidad de $x_i$ y $f(i)$
 
-Se detectó un caso particular:
+Se detectaron dos casos particulares:
 
 ### Ataque con carga mínima elimina cualquier oleada de enemigos
 
@@ -133,6 +133,12 @@ else:
 ```
 
 Se llegó a la conclusión de no incluir esta estructura condicional ya que chequear la condición del _if_ es $\mathcal{O}(n)$ debido a la función _max()_ de Python, y en balance no es conveniente tener que realizar esta operación para todos los casos posibles simplemente para optimizar un caso muy puntual.
+
+### Solo se ataca en el ultimo turno
+
+Si bien se trata de un caso muy particular que no está necesariamente relacionado con la variabilidad de los datos, nos parece un caso interesante por la drástica reduccion en complejidad de la reconstrucción del la solución la cual pasa a ejecutarse en $\mathcal{O}(1)$ al tratarse de un único ataque y por la forma en la nuestro algoritmo se implementa, es innecesario iterar todas las soluciones anteriores.
+
+Sin embargo, al igual que el caso anterior, no afecta la complejidad pues no la obtención del óptimo se mantiene una operación de complejidad $\mathcal{O}(n²)$
 
 # Casos de Prueba
 
@@ -159,3 +165,4 @@ Para ello se generaron muestras aleatorias de $x_i$ y $f(\cdot)$ de tamaño $n$,
 
 ![grafico complejidad](img/grafico_complejidad.png "Grafico complejidad")
 
+Podemos observar que hay una similitud notable entre los graficos, confirmando que la complejidad del algoritmo es cuadratica.
