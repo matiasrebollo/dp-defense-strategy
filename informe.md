@@ -58,7 +58,7 @@ En base a todo lo analizado previamente se propone el siguiente algoritmo para o
   
 
 # Algoritmo y complejidad
-A continuación expondremos el código de nuestro algoritmo junto con el respectivo análisis de complejidad.
+A continuación se expone el código del algoritmo junto con el respectivo análisis de complejidad.
 
 ## Implementación
 
@@ -70,51 +70,45 @@ def obtener_optimo(enemigos, potencias):
     optimos = [0]*(n+1)
     for i in range(1, n + 1):
         maximo = 0
-
         for k in range(i):
             valor_actual = optimos[k] + min(enemigos[i - 1], potencias[i - 1 - k])
             maximo = max(valor_actual, maximo)
         optimos[i] = maximo
-
     return optimos
 
-
 def construir_estrategia(enemigos, potencias, optimos):
-    def construir_estrategia(enemigos, potencias, optimos):
     solucion = []
     i = len(enemigos)
     while i > 0:
         solucion.append(i)
-
         for k in range(i):
             valor = optimos[k] + min(enemigos[i - 1], potencias[i - 1 - k])
             if valor == optimos[i]:
                 i = k
                 break    
-
     solucion.reverse()
     return solucion
 ```
 
-## Análisis de complejidad temporal
+## Análisis de complejidad
 El algoritmo consta de dos partes: 
 
 1. **Obtener los óptimos para cada subproblema**: 
-    + Iterar por cada minuto $i$ (un total de $n$ veces). 
-    + En cada iteracion aplicar la ecuacion de recurrencia, iterando por las soluciones de los $k$ subproblemas ya calculados: $\mathcal{O}(k)$
+    + Iterar por cada minuto $i$ (un total de $n$ veces): $\mathcal{O}(n)$ 
+    + En cada iteración $i$ aplicar la ecuación de recurrencia. Para esto se itera por las soluciones de los $k$ subproblemas ya calculados: $\mathcal{O}(k)$
     
-    Como $k \le n$, la complejidad temporal de esta parte queda en $n\cdot \mathcal{O}(k) = n\cdot\mathcal{O}(n) =\mathcal{O}(n²)$.
+    Como $k \le n$, la complejidad temporal de esta parte queda en $\mathcal{O}(n)\cdot \mathcal{O}(k) = \mathcal{O}(n)\cdot\mathcal{O}(n) =\mathcal{O}(n²)$.
 
 
-2. **Reconstruir la estrategia optima a partir del arreglo de optimos**:
-    + Buscar el óptimo actual entre las propuestas de los subproblemas anteriores: $\mathcal{O}(n)$ 
-    + Repetir lo anterior desde el resultado de la busqueda, hasta llegar al inicio ($m$ veces para una solucion de $m$ ataques).
+2. **Reconstruir la estrategia a partir del arreglo de óptimos**:
+    + Buscar cómo se llegó al óptimo actual entre las propuestas de los subproblemas anteriores: $\mathcal{O}(n)$ 
+    + Repetir lo anterior desde el minuto resultado de la búsqueda hasta llegar al inicio ($m$ veces para una solución de $m$ ataques): $\mathcal{O}(m)$
 
-    Como $m\le n$, la complejidad queda como $m\cdot\mathcal{O}(n) = n\cdot\mathcal{O}(n) = \mathcal{O}(n²)$
+    Como $m\le n$, la complejidad queda como $\mathcal{O}(n)\cdot\mathcal{O}(m) = \mathcal{O}(n)\cdot\mathcal{O}(n) = \mathcal{O}(n²)$
 
-Complejidad final: $\mathcal{O}(n²) + \mathcal{O}(n²) = \mathcal{O}(n²)$ en funcion del tamaño del arreglo de entrada.
+Complejidad total: $\mathcal{O}(n²) + \mathcal{O}(n²) = \mathcal{O}(n²)$ en función del tamaño de los arreglos de entrada.
 
-# Análisis de variabilidad de los valores de entrada
+# Análisis de variabilidad de $x_i$ y $f(i)$
 
 Se detectó un caso particular:
 
@@ -122,10 +116,10 @@ Se detectó un caso particular:
 
 En otras palabras, $f(1) \ge x_i \forall i$. En este caso no hay diferencia entre cargar el ataque o no, pues siempre se terminan eliminando la misma cantidad de enemigos. Por ende, la mejor opción siempre será _atacar en todos los minutos_ y la _cantidad total de bajas enemigas será equivalente al total de enemigos_.
 
-No afecta a la complejidad debido a que la primera parte de nuestro algoritmo no logra salvarse de iterar por cada óptimo para cada minuto. 
-Cabe mencionar que si bien no afecta la complejidad total, al atacar en todos los minutos terminaremos en el peor caso de la reconstrucción de la solución al tener que realizar operaciones lineales para cada minuto.
+No afecta a la complejidad debido a que la primera parte del algoritmo no logra salvarse de iterar para obtener todos los óptimos correspondientes para cada minuto. 
+Cabe mencionar que si bien no afecta a la cota de la complejidad total, al atacar en todos los minutos se encontrará en el peor caso de la reconstrucción de la solución al tener que realizar operaciones lineales por cada minuto.
 
-Tampoco es una situación que afecte la optimalidad del algoritmo, pues al tratarse de un algoritmo de programación dinámica este _explora de manera implícita todo el espacio de posibiles soluciones_, por lo que al final eligirá las opciones que más le sirvan y podrá detectar con facilidad que atacar varias veces con el mismo impacto será mejor que cargar el ataque y conseguir un resultado menor. 
+Tampoco es una situación que afecte la optimalidad del algoritmo, pues al tratarse de programación dinámica este _explora de manera implícita todo el espacio de posibles soluciones_. Siempre eligirá las opciones que más le convengan para cada subproblema y podrá detectar con facilidad que atacar varias veces con el mismo impacto será mejor que cargar el ataque y conseguir un resultado menor. 
 
 Además, se discutió la idea de modificar el algoritmo general de la siguiente manera:
 
