@@ -14,7 +14,7 @@ def ajuste(x, a, b, c):
 
 
 def obtener_tiempo(n):
-    enemigos_arr = [randrange(1, 1000000) for _ in range(n)]
+    enemigos_arr = [randrange(1, MAX_ENEMIGOS) for _ in range(n)]
     potencia_ataques = obtener_funcion_potencias_random(n)
 
     tiempo_acumulado = 0
