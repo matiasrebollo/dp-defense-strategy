@@ -1,63 +1,60 @@
 # Objetivo
 
-El objetivo del presente trabajo es idear un algoritmo que indique la estrategia de defensa óptima para defender Ba Sing Se del ataque de la Nación del Fuego. Dicho algoritmo debe implementarse mediante programación dinámica. Además, se brindará un análisis completo del problema y del algoritmo en cuestión.
+El objetivo del presente trabajo es idear un algoritmo que indique la estrategia óptima para defender Ba Sing Se del ataque de la Nación del Fuego. El mismo deberá ser implementado mediante programación dinámica. Además, se brindará un análisis completo del problema y del algoritmo en cuestión.
 
 # Análisis del problema
 
-Primero definimos las variables de nuestro problema:
-- $n$ la duración (en minutos) del ataque enemigo.
+Primero se definen las variables del problema:
+- $n$: la duración (en minutos) del ataque enemigo.
 - $x_i$: la cantidad de enemigos que llegarán en el minuto $i$.
-- $f(i)$: la potencia del ataque de los Dai Li, tras ser cargado por $i$ minutos.
+- $f(i)$: la potencia del ataque de los Dai Li tras ser cargado $i$ minutos.
 
 Además, se debe tener en cuenta lo siguiente:
-- Si se decide atacar a los enemigos en el minuto $k$, habiendo pasado $i$ minutos desde el ultimo ataque, el total de bajas enemigas será de $\min(x_i, f(i))$
-- Luego de atacar, se pierde la carga acumulada.
+- Si se decide atacar a los enemigos en el minuto $k$ habiendo pasado $i$ minutos desde el último ataque, el total de bajas enemigas será $\min(x_i, f(i))$.
+- Luego de atacar se pierde la carga acumulada.
 
-Nuestra tarea es decidir cuáles son los minutos cruciales para atacar a los enemigos y así maximizar sus bajas.
+El propósito será decidir cuáles son los minutos cruciales para atacar a los enemigos y así maximizar sus bajas.
 
 ### Análisis de casos bases
 
-Como se pide una solución mediante programación dinámica, pensemos en los casos bases:
-- $n=0$: No hay ataque, no hay bajas enemigas.
-- $n=1$: Al ser la única oportunidad de ataque, se realiza el mismo, provocando $\min(x_1, f(1))$ bajas enemigas.
+Como la solución debe ser implementada con programación dinámica, se comienza observando los casos bases:
+- $n=0$: no hay ataque, no hay bajas enemigas.
+- $n=1$: al ser la única oportunidad de ataque, se realiza el mismo provocando $\min(x_1, f(1))$ bajas enemigas.
 
-Sigamos con el análisis de casos sencillos:
-- $n=2$: Como **no tiene sentido no atacar en el último minuto**, las posibles estrategias son atacar en ambos minutos (Atacar, Atacar) o cargar el ataque por un minuto y atacar en el último (Cargar, Atacar). Elegiremos aquella que cause mayor daño al enemigo, o en otras palabras:
+- $n=2$: como **no tiene sentido no atacar en el último minuto**, las posibles estrategias son atacar en ambos minutos (Atacar, Atacar) o cargar el ataque en el primer minuto y atacar en el segundo (Cargar, Atacar). Se elegirá aquella que cause mayor daño al enemigo, en otras palabras:
 $$\max(\min(x_1,f(1))+\min(x_2, f(1)), \min(x_2, f(2)))$$
 
-- $n=3$: Tenemos el doble de estrategias que el caso anterior:
+- $n=3$: se tiene el doble de estrategias posibles con respecto al caso anterior:
     - **Atacar**, **Atacar**, Atacar
     - **Cargar**, **Atacar**, Atacar
     - Atacar, Cargar, Atacar
     - Cargar, Cargar, Atacar
 
-    Si observamos bien, las primeras dos estrategias tienen como subproblema el del punto anterior, y como una vez se ataca se reinicia la carga del ataque sin importar todo lo que vino antes, entre estas dos opciones debemos elegir la que mas enemigos haya derrotado, y este paso ya lo hemos calculado en el paso anterior, con $n=2$.
+    Puede notarse que las primeras dos estrategias tienen como subproblema el del ítem anterior, y como una vez que se ataca se reinicia la carga del ataque sin importar todo lo que vino antes, entre estas dos opciones se deberá elegir la que más enemigos haya eliminado. Esto mismo ya ha sido calculado en el paso anterior con $n=2$.
 
-    El problema no acaba ahi, pues puede ser que la estrategia correcta este entre la últimas dos, las cuales de manera similar a lo dicho recientemente,  incluyen un subproblema anterior, en este caso para n=1 y n=0, y en cada caso hay que tener en cuenta que la carga ira creciendo, pues es una funcion monotona creciente.
-Para resumir, podemos escribir la ecuacion:
-
+    El problema no termina ahí, pues puede ser que la estrategia óptima se encuentre entre la últimas dos. De manera similar a lo mencionado anteriormente, ambas incluyen un subproblema anterior, en este caso con $n=1$ y $n=0$. También será necesario tener en cuenta que la carga irá creciendo ya que es una función monótona creciente.
+    Resumiendo, para obtener el óptimo se puede escribir la ecuación:
 $$\max(OPT(0) + \min(x_3,f(3)), OPT(1) + \min(x_3, f(2)), OPT(2) + \min(x_3, f(1)))$$
 
-Aplicando la ecucion para cualquier minuto $n$, obtenemos la ecuacion de recurrencia:
-
 #### Ecuación de recurrencia
-
+Extrapolando esta última ecuación para cualquier $n$, se obtiene la ecuación de recurrencia del problema:
 $$
 OPT(n) = \max_{0\le k\lt n}\left(OPT(k) +\min(x_{n},f(n-k))\right)
 $$
 
 ### Algoritmo propuesto
 
-Proponemos el siguiente algoritmo:
-1. **Obtengo los optimos para cada subproblema**:
-    + Itero por cada minuto $i$.
-    + Por cada iteración calculo el optimo mediante la ecuacion de recurrencia.
+En base a todo lo analizado previamente se propone el siguiente algoritmo para obtener $OPT(n)$:
+1. **Obtener los óptimos para cada subproblema**
+    + Se inicializan todos los óptimos en 0.
+    + Se itera por cada minuto $i$ desde 1 hasta $n$.
+    + En cada iteración se calcula $OPT(i)$ aplicando la ecuación de recurrencia (utilizando los óptimos calculados previamente).
 
 2. **Construir la estrategia**:
-    + Empiezo desde el ultimo optimo calculado.
-    + Agrego su respectivo minuto a la solucion.
-    + Busco cuál fue el minuto donde se ataco para llegar al óptimo.
-    + A partir de este minuto, repito los pasos anteriores hasta llegar al minuto 0.
+    + Se empieza desde el último minuto y se agrega a la solución (ya que siempre se ataca).
+    + Se busca cuál fue el minuto donde se atacó previamente para llegar al óptimo final.
+    + Nuevamente se agrega a la solución y se repiten los pasos anteriores a partir de este nuevo minuto agregado hasta llegar al 0.
+    + Por último, se invierte el orden la solución para que quede de menor a mayor.
   
 
 # Algoritmo y complejidad
