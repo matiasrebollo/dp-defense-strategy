@@ -153,7 +153,7 @@ El algoritmo respondió satisfactoriamente a todos estos casos, demostrando su e
 
 # Mediciones
 Se realizaron una serie de mediciones para comprobar la complejidad de nuestro algoritmo.
-Para ello se generaron muestras aleatorias de $x_i$ y $f(\cdot)$ de tamaño $n$, yendo de 10 elementos a 5000, de a pasos de 500 elementos, y se fue midiendo el tiempo que tardo nuestro algoritmo. Para reducir el ruido de las mediciones, por cada tamaño se realizaron 7 mediciones y se calculo su promedio.
+Para ello se generaron muestras aleatorias de $x_i$ y $f(\cdot)$ de tamaño $n$, yendo de 10 elementos a 5000, de a pasos de 100 elementos, y se fue midiendo el tiempo que tardo nuestro algoritmo. Para reducir el ruido de las mediciones, por cada tamaño se realizaron 5 mediciones y se calculo su promedio. Para graficar la complejidad esperada, que en este caso era cuadratica, se ajustaron las mediciones a una parabola mediante el metodo de cuadrados minimos.
 
 ![grafico complejidad](img/grafico_complejidad.png "Grafico complejidad")
 
