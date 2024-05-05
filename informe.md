@@ -138,7 +138,7 @@ Se llegó a la conclusión de no incluir esta estructura condicional ya que cheq
 
 Si bien se trata de un caso muy particular que no está necesariamente relacionado con la variabilidad de los datos, nos parece un caso interesante por la drástica reduccion en complejidad de la reconstrucción del la solución la cual pasa a ejecutarse en $\mathcal{O}(1)$ al tratarse de un único ataque y por la forma en la nuestro algoritmo se implementa, es innecesario iterar todas las soluciones anteriores.
 
-Sin embargo, al igual que el caso anterior, no afecta la complejidad pues no la obtención del óptimo se mantiene una operación de complejidad $\mathcal{O}(n²)$
+Sin embargo, al igual que el caso anterior, no afecta la complejidad pues la obtención del óptimo se mantiene una complejidad de $\mathcal{O}(n²)$
 
 # Casos de Prueba
 
