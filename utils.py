@@ -1,3 +1,7 @@
+from random import randrange
+
+MAXIMO_PODER =1000000 # Para que funcione randrange
+
 def calcular_tropas_eliminadas(enemigos, potencias, estrategia):
         cant_tropas = 0
         potencia = 1
@@ -22,3 +26,12 @@ def obtener_optimo_bt(enemigos, potencias, optimo_pd, i, optimo_actual, ultimo_a
     optimo_sin_atacar = obtener_optimo_bt(enemigos, potencias, optimo_pd, i+1, optimo_actual, ultimo_ataque)
     
     return max(optimo_atacando, optimo_sin_atacar)
+
+def obtener_funcion_potencias_random(n):
+    potencias = [0]*n
+    for i in range(n):
+        if i == 0:
+               potencias[i] = randrange(0, MAXIMO_PODER)
+        else:
+            potencias[i] = randrange(potencias[i-1], MAXIMO_PODER)
+    return potencias
