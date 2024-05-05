@@ -1,6 +1,6 @@
 from random import randrange
 
-MAXIMO_PODER =1000000 # Para que funcione randrange
+MAXIMO_PODER = 1000000 # Para que funcione randrange
 
 def calcular_tropas_eliminadas(enemigos, potencias, estrategia):
         cant_tropas = 0

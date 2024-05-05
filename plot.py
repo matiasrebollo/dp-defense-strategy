@@ -6,7 +6,8 @@ from main import obtener_optimos, construir_estrategia
 import matplotlib.pyplot as plt
 import numpy as np
 
-TAM_MUESTRA = 7 # Numeros mas grandes tardaban demasiado
+TAM_MUESTRA = 5 # Numeros mas grandes tardaban demasiado
+MAX_ENEMIGOS = 1000000 # Numero muy grande, para que funcione randrange
 
 def ajuste(x, a, b, c):
     return a*x**2 + b*x + c
@@ -29,7 +30,7 @@ def obtener_tiempo(n):
     return tiempo_acumulado/TAM_MUESTRA
 
 
-tamanio_datos = np.arange(10, 5000, 500)
+tamanio_datos = np.arange(10, 5000, 100)
 fun = np.frompyfunc(obtener_tiempo, 1, 1)
 tiempos_ejecucion = fun(tamanio_datos)
 popt, _ = curve_fit(ajuste, tamanio_datos, tiempos_ejecucion)
