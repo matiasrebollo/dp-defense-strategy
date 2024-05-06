@@ -1,3 +1,4 @@
+\newpage
 # Objetivo
 
 El objetivo del presente trabajo es idear un algoritmo que indique la estrategia óptima para defender Ba Sing Se del ataque de la Nación del Fuego. El mismo deberá ser implementado mediante programación dinámica. Además, se brindará un análisis completo del problema y del algoritmo en cuestión.
@@ -25,6 +26,7 @@ Como la solución será implementada con programación dinámica, se comienza ob
 - $n=1$: al ser la única oportunidad de ataque, se realiza el mismo provocando $\min(x_1, f(1))$ bajas enemigas.
 - $n=2$: como **no tiene sentido no atacar en el último minuto**, las posibles estrategias son atacar en ambos minutos (Atacar, Atacar) o cargar el ataque en el primer minuto y atacar en el segundo (Cargar, Atacar). Se elegirá aquella que cause mayor daño al enemigo, en otras palabras:
 $$\max(\min(x_1,f(1))+\min(x_2, f(1)), \min(x_2, f(2)))$$
+\newpage
 - $n=3$: se tiene el doble de estrategias posibles con respecto al caso anterior:
     - **Atacar**, **Atacar**, Atacar
     - **Cargar**, **Atacar**, Atacar
@@ -35,8 +37,9 @@ $$\max(\min(x_1,f(1))+\min(x_2, f(1)), \min(x_2, f(2)))$$
 
     El problema no termina ahí, pues puede ser que la estrategia óptima se encuentre entre la últimas dos. De manera similar a lo mencionado anteriormente, ambas incluyen un subproblema anterior, en este caso con $n=1$ y $n=0$. También será necesario tener en cuenta que la carga irá aumentando ya que es una función monótona creciente.
     Resumiendo, para obtener el óptimo se puede escribir la expresión:
-
-$$\max(OPT(0) + \min(x_3,f(3)), OPT(1) + \min(x_3, f(2)), OPT(2) + \min(x_3, f(1)))$$
+$$
+\max(OPT(0) + \min(x_3,f(3)), OPT(1) + \min(x_3, f(2)), OPT(2) + \min(x_3, f(1)))
+$$
 
 ## Ecuación de recurrencia
 Extrapolando esta última expresión para cualquier $n$, se obtiene la ecuación de recurrencia del problema:
@@ -168,7 +171,7 @@ Los casos de prueba abarcan diversas situaciones para identificar posibles fallo
 Para evaluar la optimalidad se desarrolló un algoritmo de backtracking y una función auxiliar para calcular la cantidad de tropas eliminadas dada una determinada estrategia. El código de ambos se encuentra en _utils.py_ y los tests realizados en _tests.py_.
 
 El algoritmo respondió satisfactoriamente a todos estos casos, demostrando su eficacia y capacidad de adaptarse a una amplia gama de situaciones. Esto indica que el algoritmo es óptimo en todos los escenarios evaluados.
-
+\newpage
 
 # Mediciones
 Se realizaron una serie de mediciones para comprobar empíricamente la complejidad del algoritmo.
@@ -177,13 +180,14 @@ Para ello se generaron muestras aleatorias de $x_i$ y $f(\cdot)$ de tamaño $n$,
 ![Gráfico complejidad](img/grafico_complejidad.png "Gráfico complejidad")
 
 Se puede observar que hay una similitud notable entre los gráficos, confirmando experimentalmente que la complejidad del algoritmo es cuadrática.
-
+\newpage
 Para el siguiente gráfico se repitió la experiencia anterior para los casos mencionados
 en el [análisis de variabilidad de $x_i$ y $f(\cdot)$](#análisis-de-variabilidad-de--y).
 
 ![Gráfico variabilidad](img/grafico_variabilidad.png "Gráfico variabilidad")
 
 Si bien ambos presentan una tendencia cuadrática, puede apreciarse notoriamente una diferencia entre los tiempos consumidos para cada uno, ya que se trata del mejor caso ([ataque solo en el último minuto](#solo-se-ataca-en-el-último-minuto)) versus el peor caso ([ataques en todos los minutos](#ataque-con-carga-mínima-elimina-toda-oleada-de-enemigos)) de la etapa de reconstrucción de la solución.
+\newpage
 
 # Conclusiones
 Tras haber realizado todos los análisis, ejemplos y mediciones correspondientes, se puede concluir que:
