@@ -1,13 +1,10 @@
 from time import perf_counter
-from utils import obtener_funcion_potencias_random
+from utils import MAX_ENEMIGOS, TAM_MUESTRA, obtener_funcion_potencias_random
 from random import randrange
 from scipy.optimize import curve_fit
 from main import obtener_optimos, construir_estrategia
 import matplotlib.pyplot as plt
 import numpy as np
-
-TAM_MUESTRA = 1 # Numeros mas grandes tardaban demasiado
-MAX_ENEMIGOS = 1000000 # Numero muy grande, para que funcione randrange
 
 def ajuste(x, a, b, c):
     return a*x**2 + b*x + c

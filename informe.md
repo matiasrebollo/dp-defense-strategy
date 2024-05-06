@@ -160,9 +160,15 @@ El algoritmo respondió satisfactoriamente a todos estos casos, demostrando su e
 Se realizaron una serie de mediciones para comprobar la complejidad del algoritmo.
 Para ello se generaron muestras aleatorias de $x_i$ y $f(\cdot)$ de tamaño $n$, yendo de 10 a 5000 elementos de a pasos de 100 y se fue midiendo el tiempo consumido. Para reducir el ruido de las mediciones, por cada tamaño se realizaron 5 mediciones y se calculó su promedio. Para graficar la complejidad teórica esperada, que en este caso era cuadrática, se ajustaron las mediciones a una parábola mediante el método de cuadrados mínimos.
 
-![grafico complejidad](img/grafico_complejidad.png "Grafico complejidad")
+![grafico complejidad](img/grafico_complejidad.png "Gráfico complejidad")
 
 Podemos observar que hay una similitud notable entre los gráficos, confirmando experimentalmente que la complejidad del algoritmo es cuadrática.
+
+Para el siguiente gráfico se repitió la experiencia anterior para los casos mencionados
+en el [análisis de variabilidad de $x_i$ y $f(\cdot)$](#análisis-de-variabilidad-de--y).
+
+![grafico variabilidad](img/grafico_variabilidad.png "Gráfico variabilidad")
+<!-- TO DO -->
 
 # Conclusiones
 Tras haber realizado todos los análisis, ejemplos y mediciones correspondientes, se puede concluir que:

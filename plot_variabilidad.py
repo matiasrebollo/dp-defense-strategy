@@ -2,8 +2,7 @@ import matplotlib.pyplot as plt
 from time import perf_counter
 from random import uniform
 from main import obtener_optimos, construir_estrategia
-from plot import MAX_ENEMIGOS, TAM_MUESTRA
-from utils import MAXIMO_PODER
+from utils import MAX_ENEMIGOS, MAXIMO_PODER, TAM_MUESTRA
 
 plt.clf()
 tamanios_datos = [x for x in range(10, 5000, 100)]

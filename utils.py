@@ -1,5 +1,7 @@
 from random import randrange
 
+TAM_MUESTRA = 5 # Numeros mas grandes tardaban demasiado
+MAX_ENEMIGOS = 1000000 # Numero muy grande, para que funcione randrange
 MAXIMO_PODER = 1000000 # Para que funcione randrange
 
 def calcular_tropas_eliminadas(enemigos, potencias, estrategia):
