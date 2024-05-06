@@ -5,19 +5,19 @@ El objetivo del presente trabajo es idear un algoritmo que indique la estrategia
 # Análisis del problema
 
 Primero se definen las variables del problema:
-- $n$: la duración (en minutos) del ataque enemigo.
+- $n$: la duración (en minutos) de los ataques enemigos.
 - $x_i$: la cantidad de enemigos que llegarán en el minuto $i$.
 - $f(i)$: la potencia del ataque de los Dai Li tras ser cargado $i$ minutos.
 
 Además, se debe tener en cuenta lo siguiente:
-- Si se decide atacar a los enemigos en el minuto $k$ habiendo pasado $i$ minutos desde el último ataque, el total de bajas enemigas será $\min(x_i, f(i))$.
-- Luego de atacar se pierde la carga acumulada.
+- Si se decide atacar a los enemigos en el minuto $k$ habiendo pasado $i$ minutos desde el último ataque, el total de bajas enemigas será $\min(x_k, f(i))$.
+- Luego de atacar se reinicia la carga acumulada.
 
 El propósito será decidir cuáles son los minutos cruciales para atacar a los enemigos y así maximizar sus bajas.
 
 ### Análisis de casos bases
 
-Como la solución debe ser implementada con programación dinámica, se comienza observando los casos bases:
+Como la solución será implementada con programación dinámica, se comienza observando los casos bases:
 - $n=0$: no hay ataque, no hay bajas enemigas.
 - $n=1$: al ser la única oportunidad de ataque, se realiza el mismo provocando $\min(x_1, f(1))$ bajas enemigas.
 
@@ -30,14 +30,14 @@ $$\max(\min(x_1,f(1))+\min(x_2, f(1)), \min(x_2, f(2)))$$
     - Atacar, Cargar, Atacar
     - Cargar, Cargar, Atacar
 
-    Puede notarse que las primeras dos estrategias tienen como subproblema el del ítem anterior, y como una vez que se ataca se reinicia la carga del ataque sin importar todo lo que vino antes, entre estas dos opciones se deberá elegir la que más enemigos haya eliminado. Esto mismo ya ha sido calculado en el paso anterior con $n=2$.
+    Puede notarse que las primeras dos estrategias tienen como subproblema al del ítem anterior, y como una vez que se ataca se reinicia la carga del ataque sin importar todo lo que vino antes, entre estas dos opciones se deberá elegir la que más enemigos haya eliminado. Esto mismo ya ha sido calculado en el paso anterior con $n=2$.
 
-    El problema no termina ahí, pues puede ser que la estrategia óptima se encuentre entre la últimas dos. De manera similar a lo mencionado anteriormente, ambas incluyen un subproblema anterior, en este caso con $n=1$ y $n=0$. También será necesario tener en cuenta que la carga irá creciendo ya que es una función monótona creciente.
-    Resumiendo, para obtener el óptimo se puede escribir la ecuación:
+    El problema no termina ahí, pues puede ser que la estrategia óptima se encuentre entre la últimas dos. De manera similar a lo mencionado anteriormente, ambas incluyen un subproblema anterior, en este caso con $n=1$ y $n=0$. También será necesario tener en cuenta que la carga irá aumentando ya que es una función monótona creciente.
+    Resumiendo, para obtener el óptimo se puede escribir la expresión:
 $$\max(OPT(0) + \min(x_3,f(3)), OPT(1) + \min(x_3, f(2)), OPT(2) + \min(x_3, f(1)))$$
 
 #### Ecuación de recurrencia
-Extrapolando esta última ecuación para cualquier $n$, se obtiene la ecuación de recurrencia del problema:
+Extrapolando esta última expresión para cualquier $n$, se obtiene la ecuación de recurrencia del problema:
 
 $$
 OPT(n) = \max_{0\le k\lt n}\left(OPT(k) +\min(x_{n},f(n-k))\right)
@@ -45,11 +45,11 @@ $$
 
 ### Algoritmo propuesto
 
-En base a todo lo analizado previamente se propone el siguiente algoritmo para obtener $OPT(n)$:
+En base a todo lo analizado previamente, se propone el siguiente algoritmo para obtener $OPT(n)$:
 1. **Obtener los óptimos para cada subproblema**
     + Se inicializan todos los óptimos en 0.
     + Se itera por cada minuto $i$ desde 1 hasta $n$.
-    + En cada iteración se calcula $OPT(i)$ aplicando la ecuación de recurrencia (utilizando los óptimos calculados previamente).
+    + En cada iteración se calcula $OPT(i)$ aplicando la [ecuación de recurrencia](#ecuación-de-recurrencia) (utilizando los óptimos calculados previamente).
 
 2. **Construir la estrategia**:
     + Se empieza desde el último minuto y se agrega a la solución (ya que siempre se ataca).
@@ -96,7 +96,7 @@ El algoritmo consta de dos partes:
 
 1. **Obtener los óptimos para cada subproblema**: 
     + Iterar por cada minuto $i$ (un total de $n$ veces): $\mathcal{O}(n)$ 
-    + En cada iteración $i$ aplicar la ecuación de recurrencia. Para esto se itera por las soluciones de los $k$ subproblemas ya calculados: $\mathcal{O}(k)$
+    + En cada iteración $i$ aplicar la [ecuación de recurrencia](#ecuación-de-recurrencia). Para esto se itera por las soluciones de los $k$ subproblemas ya calculados: $\mathcal{O}(k)$
     
     Como $k \le n$, la complejidad temporal de esta parte queda en $\mathcal{O}(n)\cdot \mathcal{O}(k) = \mathcal{O}(n)\cdot\mathcal{O}(n) =\mathcal{O}(n²)$.
 
@@ -112,7 +112,7 @@ Complejidad total: $\mathcal{O}(n²) + \mathcal{O}(n²) = \mathcal{O}(n²)$ en f
 # Análisis de variabilidad de $x_i$ y $f(\cdot)$
 Se detectaron dos casos particulares:
 
-### Ataque con carga mínima elimina cualquier oleada de enemigos
+### Ataque con carga mínima elimina toda oleada de enemigos
 En otras palabras, $f(1) \ge x_i \forall i$. En este caso no hay diferencia entre cargar el ataque o no, pues siempre se terminan eliminando la misma cantidad de enemigos. Por ende, la mejor opción siempre será _atacar en todos los minutos_ y la _cantidad total de bajas enemigas será equivalente al total de enemigos_.
 
 No afecta a la complejidad debido a que la primera parte del algoritmo no logra salvarse de iterar para obtener todos los óptimos correspondientes para cada minuto. 
@@ -131,7 +131,7 @@ else:
 
 Se llegó a la conclusión de no incluir esta estructura condicional ya que chequear la condición del _if_ es $\mathcal{O}(n)$ debido a la función _max_ de Python, y en balance no es conveniente tener que realizar esta operación para todos los casos posibles simplemente para optimizar uno muy puntual.
 
-### Solo se ataca en el último turno
+### Solo se ataca en el último minuto
 Si bien se trata de un caso muy particular, resulta interesante por la drástica reducción en complejidad de la reconstrucción de la solución. La misma constituye el **mejor caso** y pasa a ejecutarse en $\mathcal{O}(1)$ ya que al tratarse de un único ataque y por la forma en la que el algoritmo se encuentra implementado, no es necesario iterar por todas las soluciones a los subproblemas anteriores.
 
 Sin embargo, al igual que el caso anterior, no afecta la complejidad total pues para la obtención del óptimo se mantiene en $\mathcal{O}(n²)$.
@@ -157,7 +157,7 @@ El algoritmo respondió satisfactoriamente a todos estos casos, demostrando su e
 
 
 # Mediciones
-Se realizaron una serie de mediciones para comprobar la complejidad del algoritmo.
+Se realizaron una serie de mediciones para comprobar empíricamente la complejidad del algoritmo.
 Para ello se generaron muestras aleatorias de $x_i$ y $f(\cdot)$ de tamaño $n$, yendo de 10 a 5000 elementos de a pasos de 100 y se fue midiendo el tiempo consumido. Para reducir el ruido de las mediciones, por cada tamaño se realizaron 5 mediciones y se calculó su promedio. Para graficar la complejidad teórica esperada, que en este caso era cuadrática, se ajustaron las mediciones a una parábola mediante el método de cuadrados mínimos.
 
 ![grafico complejidad](img/grafico_complejidad.png "Gráfico complejidad")
@@ -167,7 +167,7 @@ Para el siguiente gráfico se repitió la experiencia anterior para los casos me
 en el [análisis de variabilidad de $x_i$ y $f(\cdot)$](#análisis-de-variabilidad-de--y).
 
 ![grafico variabilidad](img/grafico_variabilidad.png "Gráfico variabilidad")
-Puede apreciarse notoriamente una diferencia entre los tiempos consumidos para cada uno, ya que se trata del mejor caso ([ataque solo en el último minuto](#solo-se-ataca-en-el-último-turno)) versus el peor caso ([ataques en todos los minutos](#ataque-con-carga-mínima-elimina-cualquier-oleada-de-enemigos)) de la etapa de reconstrucción de la solución.
+Si bien ambos presentan una tendencia cuadrática, puede apreciarse notoriamente una diferencia entre los tiempos consumidos para cada uno, ya que se trata del mejor caso ([ataque solo en el último minuto](#solo-se-ataca-en-el-último-minuto)) versus el peor caso ([ataques en todos los minutos](#ataque-con-carga-mínima-elimina-toda-oleada-de-enemigos)) de la etapa de reconstrucción de la solución.
 
 # Conclusiones
 Tras haber realizado todos los análisis, ejemplos y mediciones correspondientes, se puede concluir que:
@@ -175,4 +175,4 @@ Tras haber realizado todos los análisis, ejemplos y mediciones correspondientes
 cuestión para todos los casos posibles. La variabilidad de los valores de $x_i$ y $f(\cdot)$
 no afecta la optimalidad del mismo.
 - La complejidad del algoritmo en general es $\mathcal{O}(n²)$. Experimentalmente se logró apreciar esta tendencia.
-- Existe una diferencia significativa y creciente a mayor $n$ entre los tiempos de ejecución del mejor y el peor caso. Por lo tanto, la variabilidad de los valores de $x_i$ y $f(\cdot)$ puede afectar a los tiempos del algoritmo planteado.
+- Existe una diferencia significativa y creciente a mayor $n$ entre los tiempos de ejecución del [mejor](#solo-se-ataca-en-el-último-minuto) y el [peor caso](#ataque-con-carga-mínima-elimina-toda-oleada-de-enemigos). Por lo tanto, la variabilidad de los valores de $x_i$ y $f(\cdot)$ puede afectar a los tiempos del algoritmo planteado.
