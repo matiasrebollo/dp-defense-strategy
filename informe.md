@@ -116,7 +116,7 @@ Se detectaron dos casos particulares:
 En otras palabras, $f(1) \ge x_i \forall i$. En este caso no hay diferencia entre cargar el ataque o no, pues siempre se terminan eliminando la misma cantidad de enemigos. Por ende, la mejor opción siempre será _atacar en todos los minutos_ y la _cantidad total de bajas enemigas será equivalente al total de enemigos_.
 
 No afecta a la complejidad debido a que la primera parte del algoritmo no logra salvarse de iterar para obtener todos los óptimos correspondientes para cada minuto. 
-Cabe mencionar que si bien no afecta a la cota de la complejidad total, al atacar en todos los minutos se encontrará en el peor caso de la reconstrucción de la solución al tener que realizar operaciones lineales por cada minuto.
+Cabe mencionar que si bien no afecta a la cota de la complejidad total, al atacar en todos los minutos se encontrará en el **peor caso** de la reconstrucción de la solución al tener que realizar operaciones lineales por cada minuto.
 
 Tampoco es una situación que afecte la optimalidad del algoritmo, pues al tratarse de programación dinámica este _explora de manera implícita todo el espacio de posibles soluciones_. Siempre eligirá las opciones que más le convengan para cada subproblema y podrá detectar con facilidad que atacar varias veces con el mismo impacto será mejor que cargar el ataque y conseguir un resultado menor. 
 
@@ -132,7 +132,7 @@ else:
 Se llegó a la conclusión de no incluir esta estructura condicional ya que chequear la condición del _if_ es $\mathcal{O}(n)$ debido a la función _max_ de Python, y en balance no es conveniente tener que realizar esta operación para todos los casos posibles simplemente para optimizar uno muy puntual.
 
 ### Solo se ataca en el último turno
-Si bien se trata de un caso muy particular, resulta interesante por la drástica reducción en complejidad de la reconstrucción de la solución. La misma pasa a ejecutarse en $\mathcal{O}(1)$ ya que al tratarse de un único ataque y por la forma en la que el algoritmo se encuentra implementado, no es necesario iterar por todas las soluciones a los subproblemas anteriores.
+Si bien se trata de un caso muy particular, resulta interesante por la drástica reducción en complejidad de la reconstrucción de la solución. La misma constituye el **mejor caso** y pasa a ejecutarse en $\mathcal{O}(1)$ ya que al tratarse de un único ataque y por la forma en la que el algoritmo se encuentra implementado, no es necesario iterar por todas las soluciones a los subproblemas anteriores.
 
 Sin embargo, al igual que el caso anterior, no afecta la complejidad total pues para la obtención del óptimo se mantiene en $\mathcal{O}(n²)$.
 
@@ -161,14 +161,13 @@ Se realizaron una serie de mediciones para comprobar la complejidad del algoritm
 Para ello se generaron muestras aleatorias de $x_i$ y $f(\cdot)$ de tamaño $n$, yendo de 10 a 5000 elementos de a pasos de 100 y se fue midiendo el tiempo consumido. Para reducir el ruido de las mediciones, por cada tamaño se realizaron 5 mediciones y se calculó su promedio. Para graficar la complejidad teórica esperada, que en este caso era cuadrática, se ajustaron las mediciones a una parábola mediante el método de cuadrados mínimos.
 
 ![grafico complejidad](img/grafico_complejidad.png "Gráfico complejidad")
-
-Podemos observar que hay una similitud notable entre los gráficos, confirmando experimentalmente que la complejidad del algoritmo es cuadrática.
+Se puede observar que hay una similitud notable entre los gráficos, confirmando experimentalmente que la complejidad del algoritmo es cuadrática.
 
 Para el siguiente gráfico se repitió la experiencia anterior para los casos mencionados
 en el [análisis de variabilidad de $x_i$ y $f(\cdot)$](#análisis-de-variabilidad-de--y).
 
 ![grafico variabilidad](img/grafico_variabilidad.png "Gráfico variabilidad")
-<!-- TO DO -->
+Puede apreciarse notoriamente una diferencia entre los tiempos consumidos para cada uno, ya que se trata del mejor caso ([ataque solo en el último minuto](#solo-se-ataca-en-el-último-turno)) versus el peor caso ([ataques en todos los minutos](#ataque-con-carga-mínima-elimina-cualquier-oleada-de-enemigos)) de la etapa de reconstrucción de la solución.
 
 # Conclusiones
 Tras haber realizado todos los análisis, ejemplos y mediciones correspondientes, se puede concluir que:
@@ -176,5 +175,4 @@ Tras haber realizado todos los análisis, ejemplos y mediciones correspondientes
 cuestión para todos los casos posibles. La variabilidad de los valores de $x_i$ y $f(\cdot)$
 no afecta la optimalidad del mismo.
 - La complejidad del algoritmo en general es $\mathcal{O}(n²)$. Experimentalmente se logró apreciar esta tendencia.
-- Existe un caso particular () en el cual
-se reduce la complejidad algorítmica de la reconstrucción de la solución a O(1).
+- Existe una diferencia significativa y creciente a mayor $n$ entre los tiempos de ejecución del mejor y el peor caso. Por lo tanto, la variabilidad de los valores de $x_i$ y $f(\cdot)$ puede afectar a los tiempos del algoritmo planteado.
