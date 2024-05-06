@@ -157,11 +157,18 @@ El algoritmo respondió satisfactoriamente a todos estos casos, demostrando su e
 
 
 # Mediciones
-Se realizaron una serie de mediciones para comprobar la complejidad de nuestro algoritmo.
-Para ello se generaron muestras aleatorias de $x_i$ y $f(\cdot)$ de tamaño $n$, yendo de 10 elementos a 5000, de a pasos de 100 elementos, y se fue midiendo el tiempo que tardo nuestro algoritmo. Para reducir el ruido de las mediciones, por cada tamaño se realizaron 5 mediciones y se calculo su promedio. Para graficar la complejidad esperada, que en este caso era cuadratica, se ajustaron las mediciones a una parabola mediante el metodo de cuadrados minimos.
+Se realizaron una serie de mediciones para comprobar la complejidad del algoritmo.
+Para ello se generaron muestras aleatorias de $x_i$ y $f(\cdot)$ de tamaño $n$, yendo de 10 a 5000 elementos de a pasos de 100 y se fue midiendo el tiempo consumido. Para reducir el ruido de las mediciones, por cada tamaño se realizaron 5 mediciones y se calculó su promedio. Para graficar la complejidad teórica esperada, que en este caso era cuadrática, se ajustaron las mediciones a una parábola mediante el método de cuadrados mínimos.
 
 ![grafico complejidad](img/grafico_complejidad.png "Grafico complejidad")
 
-Podemos observar que hay una similitud notable entre los graficos, confirmando que la complejidad del algoritmo es cuadratica.
+Podemos observar que hay una similitud notable entre los gráficos, confirmando experimentalmente que la complejidad del algoritmo es cuadrática.
 
 # Conclusiones
+Tras haber realizado todos los análisis, ejemplos y mediciones correspondientes, se puede concluir que:
+- El algoritmo propuesto obtiene siempre la solución óptima al problema en
+cuestión para todos los casos posibles. La variabilidad de los valores de $x_i$ y $f(\cdot)$
+no afecta la optimalidad del mismo.
+- La complejidad del algoritmo en general es $\mathcal{O}(n²)$. Experimentalmente se logró apreciar esta tendencia.
+- Existe un caso particular () en el cual
+se reduce la complejidad algorítmica de la reconstrucción de la solución a O(1).

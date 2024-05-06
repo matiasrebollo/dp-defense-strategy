@@ -31,7 +31,7 @@ def obtener_funcion_potencias_random(n):
     potencias = [0]*n
     for i in range(n):
         if i == 0:
-               potencias[i] = randrange(0, MAXIMO_PODER)
+            potencias[i] = randrange(0, MAXIMO_PODER)
         else:
             potencias[i] = randrange(potencias[i-1], MAXIMO_PODER)
     return potencias

@@ -6,19 +6,17 @@ from main import obtener_optimos, construir_estrategia
 import matplotlib.pyplot as plt
 import numpy as np
 
-TAM_MUESTRA = 5 # Numeros mas grandes tardaban demasiado
+TAM_MUESTRA = 1 # Numeros mas grandes tardaban demasiado
 MAX_ENEMIGOS = 1000000 # Numero muy grande, para que funcione randrange
 
 def ajuste(x, a, b, c):
     return a*x**2 + b*x + c
-
 
 def obtener_tiempo(n):
     enemigos_arr = [randrange(1, MAX_ENEMIGOS) for _ in range(n)]
     potencia_ataques = obtener_funcion_potencias_random(n)
 
     tiempo_acumulado = 0
-
     for _ in range(TAM_MUESTRA):
         start = perf_counter()
         optimos = obtener_optimos(enemigos_arr, potencia_ataques)
@@ -28,7 +26,6 @@ def obtener_tiempo(n):
         tiempo_acumulado += tiempo_ms
 
     return tiempo_acumulado/TAM_MUESTRA
-
 
 tamanio_datos = np.arange(10, 5000, 100)
 fun = np.frompyfunc(obtener_tiempo, 1, 1)
@@ -43,7 +40,7 @@ axis[0].set_xlabel("cantidad de minutos")
 axis[0].set_ylabel("tiempo consumido [ms]")
 
 axis[1].plot(tamanio_datos, ajuste(tamanio_datos, *popt))
-axis[1].set_title("Complejidad esperada")
+axis[1].set_title("Complejidad teórica esperada")
 axis[1].set_xlabel("cantidad de minutos")
 axis[1].set_ylabel("tiempo consumido [ms]")
 
