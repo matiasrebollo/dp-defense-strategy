@@ -195,5 +195,7 @@ Tras haber realizado todos los análisis, ejemplos y mediciones correspondientes
 - El algoritmo propuesto obtiene siempre la solución óptima al problema en
 cuestión para todos los casos posibles. La variabilidad de los valores de $x_i$ y $f(\cdot)$
 no afecta la optimalidad del mismo.
+
 - La complejidad del algoritmo en general es $\mathcal{O}(n^2)$. Experimentalmente se logró apreciar esta tendencia.
+  
 - Existe una diferencia significativa y creciente a mayor $n$ entre los tiempos de ejecución del [mejor](#solo-se-ataca-en-el-último-minuto) y el [peor caso](#ataque-con-carga-mínima-elimina-toda-oleada-de-enemigos). Por lo tanto, la variabilidad de los valores de $x_i$ y $f(\cdot)$ puede afectar a los tiempos del algoritmo planteado.
