@@ -126,7 +126,7 @@ $$
 \mathcal{O}(n^2) + \mathcal{O}(n^2) = \mathcal{O}(n^2)
 $$
 
-# Análisis de variabilidad de $x_i$ y $f(\cdot)$
+# Análisis de variabilidad de $x_i$ y $f(\cdot)$ {#1}
 Se detectaron dos casos particulares:
 
 ## Ataque con carga mínima elimina toda oleada de enemigos
@@ -182,7 +182,7 @@ Para ello se generaron muestras aleatorias de $x_i$ y $f(\cdot)$ de tamaño $n$,
 Se puede observar que hay una similitud notable entre los gráficos, confirmando experimentalmente que la complejidad del algoritmo es cuadrática.
 \newpage
 Para el siguiente gráfico se repitió la experiencia anterior para los casos mencionados
-en el [análisis de variabilidad de $x_i$ y $f(\cdot)$](#análisis-de-variabilidad-de--y).
+en el [análisis de variabilidad de $x_i$ y $f(\cdot)$](#1).
 
 ![Gráfico variabilidad](img/grafico_variabilidad.png "Gráfico variabilidad")
 
