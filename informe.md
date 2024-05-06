@@ -132,7 +132,7 @@ else:
 Se llegó a la conclusión de no incluir esta estructura condicional ya que chequear la condición del _if_ es $\mathcal{O}(n)$ debido a la función _max_ de Python, y en balance no es conveniente tener que realizar esta operación para todos los casos posibles simplemente para optimizar uno muy puntual.
 
 ### Solo se ataca en el último minuto
-Si bien se trata de un caso muy particular, resulta interesante por la drástica reducción en complejidad de la reconstrucción de la solución. La misma constituye el **mejor caso** y pasa a ejecutarse en $\mathcal{O}(1)$ ya que al tratarse de un único ataque y por la forma en la que el algoritmo se encuentra implementado, no es necesario iterar por todas las soluciones a los subproblemas anteriores.
+Se trata de un caso muy particular, que se logra por ejemplo cuando la cantidad de enemigos del ultimo $i$ es mucho mayor a las cantidades anteriores, y la función de potencia crece drásticamente en el último minuto. Resulta interesante por la drástica reducción en complejidad de la reconstrucción de la solución. La misma constituye el **mejor caso** y pasa a ejecutarse en $\mathcal{O}(1)$ ya que al tratarse de un único ataque y por la forma en la que el algoritmo se encuentra implementado, no es necesario iterar por todas las soluciones a los subproblemas anteriores.
 
 Sin embargo, al igual que el caso anterior, no afecta la complejidad total pues para la obtención del óptimo se mantiene en $\mathcal{O}(n²)$.
 
@@ -161,12 +161,14 @@ Se realizaron una serie de mediciones para comprobar empíricamente la complejid
 Para ello se generaron muestras aleatorias de $x_i$ y $f(\cdot)$ de tamaño $n$, yendo de 10 a 5000 elementos de a pasos de 100 y se fue midiendo el tiempo consumido. Para reducir el ruido de las mediciones, por cada tamaño se realizaron 5 mediciones y se calculó su promedio. Para graficar la complejidad teórica esperada, que en este caso era cuadrática, se ajustaron las mediciones a una parábola mediante el método de cuadrados mínimos.
 
 ![grafico complejidad](img/grafico_complejidad.png "Gráfico complejidad")
+
 Se puede observar que hay una similitud notable entre los gráficos, confirmando experimentalmente que la complejidad del algoritmo es cuadrática.
 
 Para el siguiente gráfico se repitió la experiencia anterior para los casos mencionados
 en el [análisis de variabilidad de $x_i$ y $f(\cdot)$](#análisis-de-variabilidad-de--y).
 
 ![grafico variabilidad](img/grafico_variabilidad.png "Gráfico variabilidad")
+
 Si bien ambos presentan una tendencia cuadrática, puede apreciarse notoriamente una diferencia entre los tiempos consumidos para cada uno, ya que se trata del mejor caso ([ataque solo en el último minuto](#solo-se-ataca-en-el-último-minuto)) versus el peor caso ([ataques en todos los minutos](#ataque-con-carga-mínima-elimina-toda-oleada-de-enemigos)) de la etapa de reconstrucción de la solución.
 
 # Conclusiones
